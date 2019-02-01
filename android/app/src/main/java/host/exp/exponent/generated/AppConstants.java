@@ -11,16 +11,14 @@ import host.exp.exponent.Constants;
 @DoNotStrip
 public class AppConstants {
 
-  public static final String VERSION_NAME = "2.8.1";
-  public static String INITIAL_URL = "exp://exp.host/@freakycoder/my-rn-project";
-  public static final boolean IS_DETACHED = true;
-  public static final String SHELL_APP_SCHEME = "exp544815e58df34311aac6d013e17d4f39";
+  public static final String VERSION_NAME = "2.10.5";
+  public static String INITIAL_URL = "exp://exp.host/@harrisonturley/test";
+  public static final String SHELL_APP_SCHEME = "exp4a7d07399d3941b58ae2fc5ad65159a1";
   public static final String RELEASE_CHANNEL = "default";
   public static boolean SHOW_LOADING_VIEW_IN_SHELL_APP = false;
   public static boolean ARE_REMOTE_UPDATES_ENABLED = true;
   public static final List<Constants.EmbeddedResponse> EMBEDDED_RESPONSES;
   public static boolean FCM_ENABLED = false;
-  public static boolean ANALYTICS_ENABLED = true;
 
   static {
     List<Constants.EmbeddedResponse> embeddedResponses = new ArrayList<>();
@@ -36,7 +34,6 @@ public class AppConstants {
     Constants.ExpoViewAppConstants constants = new Constants.ExpoViewAppConstants();
     constants.VERSION_NAME = VERSION_NAME;
     constants.INITIAL_URL = INITIAL_URL;
-    constants.IS_DETACHED = IS_DETACHED;
     constants.SHELL_APP_SCHEME = SHELL_APP_SCHEME;
     constants.RELEASE_CHANNEL = RELEASE_CHANNEL;
     constants.SHOW_LOADING_VIEW_IN_SHELL_APP = SHOW_LOADING_VIEW_IN_SHELL_APP;
@@ -44,7 +41,6 @@ public class AppConstants {
     constants.EMBEDDED_RESPONSES = EMBEDDED_RESPONSES;
     constants.ANDROID_VERSION_CODE = BuildConfig.VERSION_CODE;
     constants.FCM_ENABLED = FCM_ENABLED;
-    constants.ANALYTICS_ENABLED = ANALYTICS_ENABLED;
     return constants;
   }
 }

@@ -12,9 +12,7 @@ import {
   View,
 } from 'react-native';
 import { WebBrowser } from 'expo';
-
 import { MonoText } from '../components/StyledText';
-
 import { withNavigation } from 'react-navigation';
 
 export default class HomeScreen extends React.Component {
@@ -25,20 +23,22 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container} contentContainerStyle={styles.contentContainer}>
-      <Header
-      containerStyle={{
-        backgroundColor: '#1995AD'
-      }}/>
-          <View style={styles.welcomeContainer}>
-            <Image
-              source={
-                  require('../assets/images/blacklogo.png')
-              }
-              style={styles.welcomeImage}
-            />
-          </View>
+        <Header
+          containerStyle={{
+          backgroundColor: '#1995AD'
+        }}/>
+
+        <View style={styles.welcomeContainer}>
+          <Image
+            source={
+                require('../assets/images/blacklogo.png')
+            }
+            style={styles.welcomeImage}
+          />
+        </View>
 
         <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 1}}></View>
+
         <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 2}}>
           <Button title="Continue" onPress={this._onPressContinue} style={styles.continueButton}
           icon={
@@ -52,6 +52,7 @@ export default class HomeScreen extends React.Component {
             borderRadius: 5}}
             />
         </View>
+
         <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
           <Button title="Set up Verification" onPress={this._onPressSetup} style={styles.setupButton}
           icon={
@@ -67,7 +68,6 @@ export default class HomeScreen extends React.Component {
         </View>
 
         <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 2}}></View>
-
       </View>
     );
   }

@@ -45,7 +45,6 @@ let htmlDialog = '';
 let htmlEnd = "</body></html>";
 
 export default class MeetingMenuScreen extends React.Component {
-
   static navigationOptions = {
     header: null
   };
@@ -78,7 +77,7 @@ export default class MeetingMenuScreen extends React.Component {
         <View style={{flex: 1}}>
           <Button title="End Meeting"  onPress={this._onEndMeeting} style={styles.endButton}
           icon={
-            <Icon name='bell' size ={15} color='black'/>
+            <Icon name='bell' size={15} color='black'/>
           }
       buttonStyle={{
       backgroundColor: "#1995AD",
