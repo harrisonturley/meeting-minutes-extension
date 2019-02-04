@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
   ScrollView,
+  DeviceEventEmitter,
 } from 'react-native';
 import { Button } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -49,9 +50,19 @@ export default class MeetingMenuScreen extends React.Component {
     header: null
   };
 
-  state = {
-    textValue: '',
-    dialogArr: [],
+  //state = {
+  //  textValue: '',
+  //  dialogArr: [],
+  //}
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      textValue: '',
+      dialogArr: [],
+    }
+    
+    this.addListenerOn(DeviceEventEmitter, 'updateText', _updateText);
   }
 
   render() {
@@ -89,6 +100,13 @@ export default class MeetingMenuScreen extends React.Component {
         </View>
       </View>
     );
+  }
+
+  /*
+   * Function to update text of speech-to-text
+   */
+  _updateText(e) {
+
   }
 
   _onEndMeeting = () => {

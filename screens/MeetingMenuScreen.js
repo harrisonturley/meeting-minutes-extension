@@ -8,13 +8,10 @@ import {
   Text,
   TouchableOpacity,
   View,
+  Platform,
 } from 'react-native';
 
-
-
 export default class MeetingMenuScreen extends React.Component {
-
-
   static navigationOptions = {
     header: null
   };
@@ -22,17 +19,19 @@ export default class MeetingMenuScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-      <Header centerComponent={{ text: 'Minitum', style: { fontSize: 25, fontFamily: 'source-sans-pro-regular' }}}
-      containerStyle={{
-        backgroundColor: '#1995AD'
-      }}/>
-    <Icon onPress={this._onPressBackButton}
-        name='arrow-circle-o-left'
-        size={35}
-        color='black'
-        style={styles.icon}/>
+        <View style={styles.header}>
+          <Text style={styles.title}>Meeting Minutes</Text>
+
+          <Icon onPress={this._onPressBackButton}
+            name='arrow-circle-o-left'
+            size={35}
+            color='black'
+            style={styles.backButton}
+          />
+        </View>
 
         <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 2}}></View>
+
         <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
           <Button title="New Meeting"  onPress={this._onPressNewMeeting} style={styles.continueButton}
           icon={
@@ -97,22 +96,51 @@ const styles = StyleSheet.create({
   },
   continueButton: {
     position: 'absolute',
-    //top: 175,
-    //paddingVertical : 20,
     alignSelf: 'center',
-
+    ...Platform.select({
+      ios: {
+        shadowColor: 'black',
+        shadowOffset: { height: -3 },
+        shadowOpacity: 0.1,
+        shadowRadius: 3,
+      },
+      android: {
+        elevation: 20,
+      },
+    }),
   },
   setupButton: {
     position: 'absolute',
-    //top: 240,
-    //paddingVertical : 20,
     alignSelf: 'center',
+    ...Platform.select({
+      ios: {
+        shadowColor: 'black',
+        shadowOffset: { height: -3 },
+        shadowOpacity: 0.1,
+        shadowRadius: 3,
+      },
+      android: {
+        elevation: 20,
+      },
+    }),
   },
-  icon: {
+  backButton: {
     position: 'absolute',
-    top: 10,
     left: 10,
-    paddingVertical: 10,
-    alignSelf: 'flex-start',
+    paddingVertical: 30,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  title: {
+    fontSize: 25, 
+    fontFamily: 'source-sans-pro-regular',
+    textAlign: 'center', 
+    flex: 1
+  }, 
+  header: {
+    backgroundColor: '#1995AD',
+    paddingTop: 30,
+    paddingBottom: 10,
+    flexDirection: 'row'
   }
 });
