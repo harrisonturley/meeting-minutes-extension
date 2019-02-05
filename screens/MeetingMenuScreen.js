@@ -25,7 +25,7 @@ export default class MeetingMenuScreen extends React.Component {
           <Icon onPress={this._onPressBackButton}
             name='arrow-circle-o-left'
             size={35}
-            color='black'
+            color='#000000'
             style={styles.backButton}
           />
         </View>
@@ -33,34 +33,36 @@ export default class MeetingMenuScreen extends React.Component {
         <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 2}}></View>
 
         <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
-          <Button title="New Meeting"  onPress={this._onPressNewMeeting} style={styles.continueButton}
-          icon={
-            <Icon name='group' size ={15} color='black'/>
-          }
-          buttonStyle={{
-          backgroundColor: "#1995AD",
-          width: 300,
-          height: 45,
-          borderWidth: 0,
-          borderRadius: 5}}
+          <Button title="New Meeting" onPress={this._onPressNewMeeting} style={styles.continueButton}
+            icon={
+              <Icon name='group' size ={15} color='black' style={styles.buttonIconStyle}/>
+            }
+
+            buttonStyle={{
+            backgroundColor: "#1995AD",
+            width: 300,
+            height: 45,
+            borderWidth: 0,
+            borderRadius: 5}}
           />
         </View>
 
         <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
           <Button title="Join Meeting"  onPress={this._onPressJoinMeeting} style={styles.setupButton}
-          icon={
-            <Icon name='group' size ={15} color='black'/>
-          }
-          buttonStyle={{
-          backgroundColor: "#A1D2E6",
-          width: 300,
-          height: 45,
-          borderWidth: 0,
-          borderRadius: 5,}}
+            icon={
+              <Icon name='group' size ={15} color='black' style={styles.buttonIconStyle}/>
+            }
+            
+            buttonStyle={{
+            backgroundColor: "#A1D2E6",
+            width: 300,
+            height: 45,
+            borderWidth: 0,
+            borderRadius: 5,}}
           />
         </View>
-        <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 2}}></View>
 
+        <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 2}}></View>
       </View>
     );
   }
@@ -78,8 +80,9 @@ export default class MeetingMenuScreen extends React.Component {
     this.props.navigation.pop();
   }
 
-  }
-  function makeid() {
+}
+
+function makeid() {
   var text = "";
   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
@@ -143,5 +146,8 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     paddingBottom: 10,
     flexDirection: 'row'
+  }, 
+  buttonIconStyle: {
+    right: 10
   }
 });

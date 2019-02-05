@@ -24,50 +24,57 @@ export default class MeetingCodeEnterScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-      <Header centerComponent={{ text: 'Minitum', style: { fontSize: 25, fontFamily: 'source-sans-pro-regular' }}}
-      containerStyle={{
-        backgroundColor: '#1995AD'
-      }}/>
-      <Icon onPress={this._onPressBackButton}
-          name='arrow-circle-o-left'
-          size={35}
-          color='black'
-          style={styles.icon}/>
+        <View style={styles.header}>
+          <Text style={styles.title}>Meeting Minutes</Text>
+
+          <Icon onPress={this._onPressBackButton}
+            name='arrow-circle-o-left'
+            size={35}
+            color='#000000'
+            style={styles.backButton}
+          />
+        </View>
         
         <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 2, top: 20}}>
-            <Text style = {styles.text}>Please enter{"\n"}your meeting{"\n"}code:</Text>
+          <Image
+            source={
+                require('../assets/images/current_logo.png')
+            }
+            
+            style={styles.welcomeImage}
+          />
+          
+          <Text style = {styles.instructionText}>Please enter{"\n"}your meeting{"\n"}code:</Text>
         </View>
 
         <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
             <Text style = {styles.incorrectCodeText}>{this.state.textValue}</Text>
         </View>
 
-        <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
-            <View>
-                <TextInput
-                style={{fontSize: 35}}
-                placeholder="Enter code here"
-                onChangeText={(text) => this.setState({code:text})}
-                />
-            </View>
+        <View style = {styles.textInputContainer}>
+          <TextInput
+            style={styles.textInput}
+            placeholder="Enter code here"
+            onChangeText={(text) => this.setState({code:text})}
+          />
         </View>
 
         <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
-            <Button title="Enter"  onPress={this._onPressEnter} style={styles.enterButton}
+          <Button title="Enter"  onPress={this._onPressEnter} style={styles.enterButton}
             icon={
-            <Icon name='play' size ={15} color='black'/>
+              <Icon name='play' size ={15} color='black' style={styles.buttonIconStyle}/>
             }
+
             buttonStyle={{
             backgroundColor: "#1995AD",
             width: 300,
             height: 45,
             borderWidth: 0,
             borderRadius: 5,}}
-            />
+          />
         </View>
+
         <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 1}}></View>
-
-
       </View>
     );
   }
@@ -80,10 +87,10 @@ export default class MeetingCodeEnterScreen extends React.Component {
 
     this.props.navigation.navigate('MeetingDialog');
   }
+
   _onPressBackButton = () => {
     this.props.navigation.pop();
   }
-
 }
 
 const styles = StyleSheet.create({
@@ -91,9 +98,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F1F1F2',
   },
-  text: {
+  instructionText: {
     color: '#000',
-    fontSize: 44,
+    fontSize: 30,
     fontWeight: 'bold',
     fontFamily: 'source-sans-pro-regular',
     textAlign: 'center',
@@ -124,5 +131,49 @@ const styles = StyleSheet.create({
     left: 10,
     paddingVertical: 10,
     alignSelf: 'flex-start',
+  },
+  backButton: {
+    position: 'absolute',
+    left: 10,
+    paddingVertical: 35,
+    justifyContent: 'flex-start',
+    flex: 1
+  },
+  title: {
+    fontSize: 25, 
+    fontFamily: 'source-sans-pro-regular',
+    textAlign: 'center', 
+    color: '#FFFFFF',
+    flex: 1
+  }, 
+  header: {
+    backgroundColor: '#1995AD',
+    paddingTop: 40,
+    paddingBottom: 10,
+    flexDirection: 'row'
+  }, 
+  buttonIconStyle: {
+    right: 10
+  }, 
+  welcomeImage: {
+    width: 150,
+    height: 125,
+    alignSelf: 'center',
+    resizeMode: 'contain',
+  },
+  textInputContainer: {
+    alignSelf: 'center', 
+    justifyContent: 'center', 
+    flex: 1, 
+    borderLeftWidth: 1, 
+    borderRightWidth: 1, 
+    borderTopWidth: 1, 
+    borderBottomWidth: 1,
+    borderRadius: 5, 
+  },
+  textInput: {
+    fontSize: 25,
+    paddingLeft: 15,
+    paddingRight: 15
   }
 });

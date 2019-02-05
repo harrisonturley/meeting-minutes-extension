@@ -33,9 +33,9 @@ export default class HomeScreen extends React.Component {
         </View>
 
         <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 2}}>
-          <Button title="Continue" onPress={this._onPressContinue} style={styles.continueButton}
+          <Button title="Meeting Setup" onPress={this._onPressMeetingSetup} style={styles.meetingSetupButton}
             icon={
-              <Icon name='long-arrow-right' size ={15} color='black'/>
+              <Icon name='long-arrow-right' size ={15} color='black' style={styles.buttonIconStyle}/>
             }
             buttonStyle={{
               backgroundColor: "#1995AD",
@@ -47,9 +47,9 @@ export default class HomeScreen extends React.Component {
         </View>
 
         <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
-          <Button title="Set up Verification" onPress={this._onPressVerification} style={styles.setupButton}
+          <Button title="Speaker Recognition Setup" onPress={this._onPressVerification} style={styles.setupButton}
             icon={
-              <Icon name='send-o' size ={15} color='black'/>
+              <Icon name='send-o' size ={15} color='black' style={styles.buttonIconStyle}/>
             }
             buttonStyle={{
               backgroundColor: "#A1D2E6",
@@ -66,8 +66,8 @@ export default class HomeScreen extends React.Component {
     );
   }
 
-  _onPressContinue = () => {
-    this.props.navigation.navigate('Continue');
+  _onPressMeetingSetup = () => {
+    this.props.navigation.navigate('EnterCode');
   }
 
   _onPressVerification = () => {
@@ -94,12 +94,13 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   }, 
   title: {
-    fontSize: 25,
+    fontSize: 35,
     fontFamily: 'source-sans-pro-regular',
     textAlign: 'center', 
+    fontWeight: 'bold',
     color: '#000000',
   },
-  continueButton: {
+  meetingSetupButton: {
     position: 'absolute',
     alignSelf: 'center',
   },
@@ -111,5 +112,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#1995AD',
     height: 75,
     flexDirection: 'row'
+  },
+  buttonIconStyle: {
+    right: 10
   }
 });
