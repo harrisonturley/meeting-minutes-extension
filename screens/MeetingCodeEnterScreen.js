@@ -1,15 +1,15 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {Header} from 'react-native-elements';
 import {Button} from 'react-native-elements';
 import {
   Image,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
   TextInput,
+  KeyboardAvoidingView,
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 
 export default class MeetingCodeEnterScreen extends React.Component {
@@ -35,46 +35,42 @@ export default class MeetingCodeEnterScreen extends React.Component {
           />
         </View>
         
-        <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 2, top: 20}}>
+        <KeyboardAvoidingView style={{ flex: 1, backgroundColor: '#F1F1F1', alignItems: 'center', justifyContent: 'center' }} behavior='padding'>
           <Image
             source={
-                require('../assets/images/current_logo.png')
+              require('../assets/images/current_logo.png')
             }
-            
+
             style={styles.welcomeImage}
           />
-          
-          <Text style = {styles.instructionText}>Please enter{"\n"}your meeting{"\n"}code:</Text>
-        </View>
 
-        <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
-            <Text style = {styles.incorrectCodeText}>{this.state.textValue}</Text>
-        </View>
+          <Text style={styles.instructionText}>Please create a meeting code:</Text>
 
-        <View style = {styles.textInputContainer}>
-          <TextInput
-            style={styles.textInput}
-            placeholder="Enter code here"
-            onChangeText={(text) => this.setState({code:text})}
-          />
-        </View>
+          <View style={styles.textInputContainer}>
+            <TextInput
+              style={styles.textInput}
+              placeholder="Enter code here"
+              onChangeText={(text) => this.setState({code:text})}
+            />
+          </View>
 
-        <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
-          <Button title="Enter"  onPress={this._onPressEnter} style={styles.enterButton}
-            icon={
-              <Icon name='play' size ={15} color='black' style={styles.buttonIconStyle}/>
-            }
+          <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
+            <Button title="Enter"  onPress={this._onPressEnter} style={styles.enterButton}
+              icon={
+                <Icon name='play' size ={15} color='black' style={styles.buttonIconStyle}/>
+              }
 
-            buttonStyle={{
-            backgroundColor: "#1995AD",
-            width: 300,
-            height: 45,
-            borderWidth: 0,
-            borderRadius: 5,}}
-          />
-        </View>
+              buttonStyle={{
+              backgroundColor: "#1995AD",
+              width: 300,
+              height: 45,
+              borderWidth: 0,
+              borderRadius: 5,}}
+            />
+          </View>
 
-        <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 1}}></View>
+          <View style = {{ height: 60 }}></View>
+        </KeyboardAvoidingView>
       </View>
     );
   }
@@ -97,33 +93,26 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F1F1F2',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   instructionText: {
-    color: '#000',
+    color: '#000000',
     fontSize: 30,
     fontWeight: 'bold',
     fontFamily: 'source-sans-pro-regular',
-    textAlign: 'center',
     textShadowColor: "#1995ad",
     textShadowRadius: 20,
-  },
-  incorrectCodeText: {
-    color: '#cc0000',
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    textShadowColor: "#1995ad",
-    textShadowRadius: 20,
-  },
-  textBox: {
-    position: 'absolute',
-    fontSize: 35,
-    textAlign: 'center',
+    marginHorizontal: 10,
+    marginVertical: 5, 
+    width: window.width - 30,
+    textAlign: 'center'
   },
   enterButton: {
-    position: 'absolute',
-    paddingVertical : 20,
-    alignSelf: 'center',
+    backgroundColor: '#1995AD',
+    marginHorizontal: 10,
+    marginVertical: 5,
+    width: window.width - 30
   },
   icon: {
     position: 'absolute',
@@ -150,30 +139,30 @@ const styles = StyleSheet.create({
     backgroundColor: '#1995AD',
     paddingTop: 40,
     paddingBottom: 10,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    zIndex: 5
   }, 
   buttonIconStyle: {
     right: 10
   }, 
   welcomeImage: {
-    width: 150,
-    height: 125,
-    alignSelf: 'center',
+    height: 150,
     resizeMode: 'contain',
+    padding: 10,
+    marginTop: 20
   },
   textInputContainer: {
-    alignSelf: 'center', 
-    justifyContent: 'center', 
-    flex: 1, 
-    borderLeftWidth: 1, 
-    borderRightWidth: 1, 
-    borderTopWidth: 1, 
-    borderBottomWidth: 1,
-    borderRadius: 5, 
+    height: 50,
+    backgroundColor: '#F1F1F1',
+    marginHorizontal: 10,
+    marginVertical: 5,
+    width: window.width - 30,
+    borderWidth: 1,
+    borderRadius: 5
   },
   textInput: {
     fontSize: 25,
-    paddingLeft: 15,
-    paddingRight: 15
+    marginHorizontal: 10,
+    marginVertical: 5
   }
 });
