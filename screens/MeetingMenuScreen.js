@@ -127,19 +127,20 @@ const styles = StyleSheet.create({
   backButton: {
     position: 'absolute',
     left: 10,
-    paddingVertical: 30,
-    justifyContent: 'center',
-    alignItems: 'center'
+    paddingVertical: 35,
+    justifyContent: 'flex-start',
+    flex: 1
   },
   title: {
     fontSize: 25, 
     fontFamily: 'source-sans-pro-regular',
     textAlign: 'center', 
+    color: '#FFFFFF',
     flex: 1
   }, 
   header: {
     backgroundColor: '#1995AD',
-    paddingTop: 30,
+    paddingTop: 40,
     paddingBottom: 10,
     flexDirection: 'row'
   }
