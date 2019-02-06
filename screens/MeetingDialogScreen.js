@@ -1,9 +1,7 @@
 import React from 'react';
 import {
-  Image,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
   ScrollView,
   DeviceEventEmitter,
@@ -50,19 +48,13 @@ export default class MeetingMenuScreen extends React.Component {
     header: null
   };
 
-  //state = {
-  //  textValue: '',
-  //  dialogArr: [],
-  //}
-
   constructor(props) {
     super(props);
+
     this.state = {
       textValue: '',
       dialogArr: [],
     }
-    
-    this.addListenerOn(DeviceEventEmitter, 'updateText', _updateText);
   }
 
   render() {
@@ -102,10 +94,11 @@ export default class MeetingMenuScreen extends React.Component {
     );
   }
 
-  /*
-   * Function to update text of speech-to-text
-   */
-  _updateText(e) {
+  componentWillMount() {
+    DeviceEventEmitter.addListener('updateText', this.handleUpdateText.bind(this));
+  }
+
+  handleUpdateText = (event) => {
 
   }
 
@@ -151,8 +144,7 @@ export default class MeetingMenuScreen extends React.Component {
     console.log(file.filePath);
     alert(file.filePath);
   }
-
-  }
+}
 
 const styles = StyleSheet.create({
   container: {
