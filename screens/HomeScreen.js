@@ -8,6 +8,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import Permissions from 'react-native-permissions';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -64,6 +65,14 @@ export default class HomeScreen extends React.Component {
         <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 2}}></View>
       </View>
     );
+  }
+
+  componentDidMount() {
+    Permissions.check('microphone').then(response => {
+      if (response != 'authorized') {
+        Permissions.request('microphone');
+      }
+    });
   }
 
   _onPressMeetingSetup = () => {

@@ -1,6 +1,9 @@
 package host.exp.exponent;
 
+import android.content.pm.PackageManager;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -70,6 +73,7 @@ public class AndroidMic extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void getAudio() {
+        Log.e("TestText", "getAudio was called!");
         if (continuousListeningStarted) {
             if (reco != null) {
                 final Future<Void> task = reco.stopContinuousRecognitionAsync();

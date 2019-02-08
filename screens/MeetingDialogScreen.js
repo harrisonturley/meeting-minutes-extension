@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { Button } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import AndroidMic from '../components/TextToSpeechListener'
 
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
 
@@ -95,11 +96,12 @@ export default class MeetingMenuScreen extends React.Component {
   }
 
   componentWillMount() {
+    AndroidMic.getAudio();
     DeviceEventEmitter.addListener('updateText', this.handleUpdateText.bind(this));
   }
 
   handleUpdateText = (event) => {
-
+    console.log("Made it here :D");
   }
 
   _onEndMeeting = () => {
