@@ -41,7 +41,7 @@ public class AndroidMic extends ReactContextBaseJavaModule {
     private ArrayList<String> content = new ArrayList<>();
     private ReactContext reactContext;
 
-    private WritableMap params = Arguments.createMap();
+   // private WritableMap params = Arguments.createMap();
 
     public AndroidMic(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -94,18 +94,24 @@ public class AndroidMic extends ReactContextBaseJavaModule {
 
             Log.e("TestLog", "Starting setup of microphone");
             reco.recognizing.addEventListener((o, speechRecognitionResultEventArgs) -> {
+                WritableMap params = Arguments.createMap();
+                Log.e("TestLog", "Recognizing started");
                 final String s = speechRecognitionResultEventArgs.getResult().getText();
                 content.add(s);
                 params.putString("text", TextUtils.join(" ", content));
                 sendEvent(reactContext, "updateText", params);
                 content.remove(content.size() - 1);
+                Log.e("TestLog", "Recognizing finished");
             });
 
             reco.recognized.addEventListener((o, speechRecognitionResultEventArgs) -> {
+                WritableMap params = Arguments.createMap();
+                Log.e("TestLog", "Recognized started");
                 final String s = speechRecognitionResultEventArgs.getResult().getText();
                 content.add(s);
                 params.putString("text", TextUtils.join(" ", content));
                 sendEvent(reactContext, "updateText", params);
+                Log.e("TestLog", "Recognized finished");
             });
 
             final Future<Void> task = reco.startContinuousRecognitionAsync();
@@ -137,6 +143,7 @@ public class AndroidMic extends ReactContextBaseJavaModule {
     }
 
     private void sendEvent(ReactContext reactContext, String eventName, @Nullable WritableMap params) {
+        Log.e("TestLog", "Sending event!");
         reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit(eventName, params);
     }
 }

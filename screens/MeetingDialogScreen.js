@@ -101,7 +101,7 @@ export default class MeetingMenuScreen extends React.Component {
   }
 
   handleUpdateText = (event) => {
-    console.log("Made it here :D");
+    console.log(event);
   }
 
   _onEndMeeting = () => {
