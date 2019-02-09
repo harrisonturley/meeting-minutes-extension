@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import Permissions from 'react-native-permissions';
+import { PermissionsAndroid } from 'react-native'
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -68,11 +69,12 @@ export default class HomeScreen extends React.Component {
   }
 
   componentDidMount() {
-    Permissions.check('microphone').then(response => {
+    /*Permissions.check('microphone').then(response => {
       if (response != 'authorized') {
         Permissions.request('microphone');
       }
-    });
+    });*/
+    //requestMicrophonePermission();
   }
 
   _onPressMeetingSetup = () => {

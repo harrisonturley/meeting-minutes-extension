@@ -1,8 +1,12 @@
 package host.exp.exponent;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 
+import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactPackage;
+import com.facebook.react.modules.core.PermissionAwareActivity;
+import com.facebook.react.modules.core.PermissionListener;
 
 import java.util.List;
 
