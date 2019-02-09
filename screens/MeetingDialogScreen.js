@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import { Button } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import AndroidMic from '../components/TextToSpeechListener'
+import AndroidMic from '../components/SpeechToTextListener'
 
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
 
@@ -130,6 +130,7 @@ export default class MeetingMenuScreen extends React.Component {
     // }))
     
     count++;
+    AndroidMic.cancelSpeechToText();
     this.props.navigation.navigate('SavePdf');
     console.log(htmlStart + htmlDialog + htmlEnd);
     this.createPDF;

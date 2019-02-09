@@ -1,17 +1,10 @@
 package host.exp.exponent;
 
-import android.content.pm.PackageManager;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.Callback;
-import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -123,6 +116,12 @@ public class AndroidMic extends ReactContextBaseJavaModule {
         } catch (Exception ex) {
             Log.e("AndroidMic", "Failed in getting audio");
         }
+    }
+
+    @ReactMethod
+    public void cancelSpeechToText() {
+        reco.stopContinuousRecognitionAsync();
+        continuousListeningStarted = false;
     }
 
     private <T> void setOnTaskCompletedListener(Future<T> task, OnTaskCompletedListener<T> listener) {

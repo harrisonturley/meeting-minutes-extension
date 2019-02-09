@@ -23,50 +23,51 @@ export default class MeetingCodeEnterScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Header centerComponent={{ text: 'Minitum', style: { fontSize: 25, fontFamily: 'source-sans-pro-regular'}}}
-        containerStyle={{
-          backgroundColor: '#1995AD'
-        }}/>
+        <View style={styles.header}>
+          <Text style={styles.title}>Meeting Minutes</Text>
+        </View>
 
         <Icon onPress={this._onPressBackButton}
-            name='arrow-circle-o-left'
-            size={35}
-            color='black'
-            style={styles.icon}/>
+          name='arrow-circle-o-left'
+          size={35}
+          color='black'
+          style={styles.icon}
+        />
 
         <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 1}}></View>
+
         <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
           <Text style = {styles.text}>Title:</Text>
         </View>
         
         <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
           <View style={styles.textBox}>
-              <TextInput
+            <TextInput
               style={{fontSize: 35}}
               placeholder="Enter title here"
               onChangeText={(text) => this.setState({code:text})}
-              />
+            />
           </View>
         </View>
 
         <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 3}}>
           <Button title="Save Meeting Notes" onPress={this._onPressSaveDocument} style={styles.saveButton}
-          icon={
-            <Icon name='file-pdf-o' size ={15} color='white'/>
-          }
-          buttonStyle={{
-            backgroundColor: "#1995AD",
-            width: 300,
-            height: 45,
-            borderWidth: 0,
-            borderRadius: 5}}
-            />
+            icon={
+              <Icon name='file-pdf-o' style={styles.buttonIcon} size ={15} color='white'/>
+            }
+            buttonStyle={{
+              backgroundColor: "#1995AD",
+              width: 300,
+              height: 45,
+              borderWidth: 0,
+              borderRadius: 5
+            }}
+          />
         </View>
         <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 2}}></View>
       </View>
     );
   }
-
 
   _onPressSaveDocument = () => {
     this.props.navigation.navigate('SuccessScreen');
@@ -81,6 +82,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#F1F1F2',
+  },
+  header: {
+    backgroundColor: '#1995AD',
+    paddingTop: 40,
+    paddingBottom: 10,
+    flexDirection: 'row',
+    zIndex: 5
+  }, 
+  title: {
+    fontSize: 25, 
+    fontFamily: 'source-sans-pro-regular',
+    textAlign: 'center', 
+    color: '#FFFFFF',
+    flex: 1
   },
   text: {
     color: '#000',
@@ -101,6 +116,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     paddingVertical : 20,
     alignSelf: 'center',
+  },
+  buttonIcon: {
+    right: 10
   },
   icon: {
     position: 'absolute',
