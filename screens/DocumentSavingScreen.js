@@ -36,15 +36,13 @@ export default class MeetingCodeEnterScreen extends React.Component {
 
         <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 1}}></View>
 
-        <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
-          <Text style = {styles.text}>Title:</Text>
-        </View>
+        <Text style = {styles.instructionText}>Meeting Title:</Text>
         
         <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
-          <View style={styles.textBox}>
+          <View style={styles.textInputContainer}>
             <TextInput
-              style={{fontSize: 35}}
-              placeholder="Enter title here"
+              style={styles.textInput}
+              placeholder="Enter code here"
               onChangeText={(text) => this.setState({code:text})}
             />
           </View>
@@ -90,6 +88,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     zIndex: 5
   }, 
+  instructionText: {
+    color: '#000000',
+    fontSize: 30,
+    fontWeight: 'bold',
+    fontFamily: 'source-sans-pro-regular',
+    textShadowColor: "#1995ad",
+    textShadowRadius: 20,
+    marginHorizontal: 10,
+    marginVertical: 5, 
+    width: window.width - 30,
+    textAlign: 'center'
+  },
   title: {
     fontSize: 25, 
     fontFamily: 'source-sans-pro-regular',
@@ -97,20 +107,19 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     flex: 1
   },
-  text: {
-    color: '#000',
-    fontSize: 44,
-    fontWeight: 'bold',
-    fontFamily: 'source-sans-pro-regular',
-    textAlign: 'center',
-    textShadowColor: "#1995ad",
-    textShadowRadius: 20,
+  textInputContainer: {
+    height: 50,
+    backgroundColor: '#F1F1F1',
+    marginHorizontal: 10,
+    marginVertical: 5,
+    width: window.width - 30,
+    borderWidth: 1,
+    borderRadius: 5
   },
-  textBox: {
-    position: 'absolute',
-    fontSize: 35,
-    alignSelf: 'center',
-    textAlign: 'center',
+  textInput: {
+    fontSize: 25,
+    marginHorizontal: 10,
+    marginVertical: 5
   },
   saveButton: {
     position: 'absolute',

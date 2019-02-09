@@ -57,15 +57,16 @@ export default class MeetingCodeEnterScreen extends React.Component {
           <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
             <Button title="Enter"  onPress={this._onPressEnter} style={styles.enterButton}
               icon={
-                <Icon name='play' size ={15} color='black' style={styles.buttonIconStyle}/>
+                <Icon name='play' size ={15} color='white' style={styles.buttonIconStyle}/>
               }
 
               buttonStyle={{
-              backgroundColor: "#1995AD",
-              width: 300,
-              height: 45,
-              borderWidth: 0,
-              borderRadius: 5,}}
+                backgroundColor: "#1995AD",
+                width: 300,
+                height: 45,
+                borderWidth: 0,
+                borderRadius: 5,
+              }}
             />
           </View>
 
@@ -77,7 +78,6 @@ export default class MeetingCodeEnterScreen extends React.Component {
 
 
   _onPressEnter = () => {
-    // If nothing entered return
     if (this.state.code == undefined || this.state.code == '')
         return;
 

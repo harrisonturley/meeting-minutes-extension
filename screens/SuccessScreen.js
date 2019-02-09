@@ -9,10 +9,14 @@ export default class SuccessScreen extends React.Component {
 
   render() {
     return (
-    <TouchableOpacity onPress={this._onEndMeeting} style={styles.container}>
+      <TouchableOpacity onPress={this._onEndMeeting} style={styles.container}>
         <Text style = {styles.textStyle}>SUCCESS!</Text>
       </TouchableOpacity>
     );
+  }
+
+  componentDidMount() {
+    
   }
 
   _onEndMeeting = () => {

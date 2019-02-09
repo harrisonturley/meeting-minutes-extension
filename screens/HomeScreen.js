@@ -1,15 +1,12 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Button } from 'react-native-elements';
-import { Header } from 'react-native-elements';
 import {
   Image,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
-import Permissions from 'react-native-permissions';
-import { PermissionsAndroid } from 'react-native'
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -34,11 +31,12 @@ export default class HomeScreen extends React.Component {
             <Text style={styles.title}>Meeting Minutes</Text>
         </View>
 
-        <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 2}}>
-          <Button title="Meeting Setup" onPress={this._onPressMeetingSetup} style={styles.meetingSetupButton}
+        <View style = {{alignSelf: 'center', justifyContent: 'center', padding: 10, flex: 1}}>
+          <Button title="Start New Meeting" onPress={this._onPressMeetingSetup} style={styles.meetingSetupButton}
             icon={
               <Icon name='long-arrow-right' size ={15} color='black' style={styles.buttonIconStyle}/>
             }
+
             buttonStyle={{
               backgroundColor: "#1995AD",
               width: 300,
@@ -48,11 +46,28 @@ export default class HomeScreen extends React.Component {
             />
         </View>
 
-        <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
+        <View style = {{alignSelf: 'center', justifyContent: 'center', padding: 10, flex: 1}}>
           <Button title="Speaker Recognition Setup" onPress={this._onPressVerification} style={styles.setupButton}
             icon={
-              <Icon name='send-o' size ={15} color='black' style={styles.buttonIconStyle}/>
+              <Icon name='cog' size={15} color='black' style={styles.buttonIconStyle}/>
             }
+
+            buttonStyle={{
+              backgroundColor: "#A1D2E6",
+              width: 300,
+              height: 50,
+              borderWidth: 0,
+              borderRadius: 5
+            }}
+          />
+        </View>
+
+        <View style = {{alignSelf: 'center', justifyContent: 'center', padding: 10, flex: 1}}>
+          <Button title="View Past Meetings" onPress={this._onPressPastMeetings} style={styles.setupButton}
+            icon={
+              <Icon name='send-o' size={15} color='black' style={styles.buttonIconStyle}/>
+            }
+
             buttonStyle={{
               backgroundColor: "#A1D2E6",
               width: 300,
@@ -68,20 +83,15 @@ export default class HomeScreen extends React.Component {
     );
   }
 
-  componentDidMount() {
-    /*Permissions.check('microphone').then(response => {
-      if (response != 'authorized') {
-        Permissions.request('microphone');
-      }
-    });*/
-    //requestMicrophonePermission();
-  }
-
   _onPressMeetingSetup = () => {
     this.props.navigation.navigate('EnterCode');
   }
 
   _onPressVerification = () => {
+
+  }
+
+  _onPressPastMeetings = () => {
 
   }
 }
