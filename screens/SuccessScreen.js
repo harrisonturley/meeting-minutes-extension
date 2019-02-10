@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text, StyleSheet, View, TouchableOpacity} from 'react-native';
 import { ExpoLinksView } from '@expo/samples';
+import Timer from 'react-native-timer'
 
 export default class SuccessScreen extends React.Component {
   static navigationOptions = {
@@ -17,6 +18,10 @@ export default class SuccessScreen extends React.Component {
 
   componentDidMount() {
     
+  }
+
+  componentWillUnmount() {
+    //Timer.clearTimeout(this);
   }
 
   _onEndMeeting = () => {

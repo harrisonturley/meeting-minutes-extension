@@ -34,7 +34,7 @@ export default class HomeScreen extends React.Component {
         <View style = {{alignSelf: 'center', justifyContent: 'center', padding: 10, flex: 1}}>
           <Button title="Start New Meeting" onPress={this._onPressMeetingSetup} style={styles.meetingSetupButton}
             icon={
-              <Icon name='long-arrow-right' size ={15} color='black' style={styles.buttonIconStyle}/>
+              <Icon name='long-arrow-right' size ={15} color='white' style={styles.buttonIconStyle}/>
             }
 
             buttonStyle={{
@@ -49,7 +49,7 @@ export default class HomeScreen extends React.Component {
         <View style = {{alignSelf: 'center', justifyContent: 'center', padding: 10, flex: 1}}>
           <Button title="Speaker Recognition Setup" onPress={this._onPressVerification} style={styles.setupButton}
             icon={
-              <Icon name='cog' size={15} color='black' style={styles.buttonIconStyle}/>
+              <Icon name='cog' size={15} color='white' style={styles.buttonIconStyle}/>
             }
 
             buttonStyle={{
@@ -65,7 +65,7 @@ export default class HomeScreen extends React.Component {
         <View style = {{alignSelf: 'center', justifyContent: 'center', padding: 10, flex: 1}}>
           <Button title="View Past Meetings" onPress={this._onPressPastMeetings} style={styles.setupButton}
             icon={
-              <Icon name='send-o' size={15} color='black' style={styles.buttonIconStyle}/>
+              <Icon name='send-o' size={15} color='white' style={styles.buttonIconStyle}/>
             }
 
             buttonStyle={{
