@@ -46,7 +46,7 @@ export default class MeetingCodeEnterScreen extends React.Component {
           </View>
         
 
-          <View style = {{alignSelf: 'center', justifyContent: 'center'}}>
+          <View style = {{alignSelf: 'center', justifyContent: 'center', marginVertical: 10}}>
             <Button title="Save Meeting Notes" onPress={this._onPressSaveDocument} style={styles.saveButton}
               icon={
                 <Icon name='file-pdf-o' style={styles.buttonIcon} size={15} color='white'/>
@@ -143,13 +143,11 @@ const styles = StyleSheet.create({
   saveButton: {
     marginHorizontal: 10,
     marginVertical: 15,
-    top: 10,
-    width: window.width - 30
+    width: window.width - 30,
   },
   cancelButton: {
     marginHorizontal: 10,
     marginVertical: 15,
-    top: 10,
     width: window.width - 30
   },
   buttonIcon: {
