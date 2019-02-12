@@ -1,9 +1,9 @@
 import React from 'react';
 import { Text, StyleSheet, View, TouchableOpacity} from 'react-native';
-import { ExpoLinksView } from '@expo/samples';
-import Timer from 'react-native-timer'
+import BackgroundTimer from 'react-native-background-timer'
 
 export default class SuccessScreen extends React.Component {
+  timeoutID;
   static navigationOptions = {
     header: null,
   };
@@ -17,16 +17,15 @@ export default class SuccessScreen extends React.Component {
   }
 
   componentDidMount() {
-    
-  }
-
-  componentWillUnmount() {
-    //Timer.clearTimeout(this);
-  }
+    timeoutID = BackgroundTimer.setTimeout(() => {
+      this.props.navigation.navigate('Home');
+    }, 5000);
+  } 
 
   _onEndMeeting = () => {
-        this.props.navigation.navigate('Home');
-    }
+    BackgroundTimer.clearTimeout(timeoutID);
+    this.props.navigation.navigate('Home');
+  }
 }
 
 

@@ -14,6 +14,7 @@
     "expokit": "^32.0.6",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "react-native-background-timer": "^2.1.1",
     "react-native-elements": "^1.0.0-beta7",
     "react-native-fs": "^2.13.3",
     "react-native-html-to-pdf": "^0.6.0",
