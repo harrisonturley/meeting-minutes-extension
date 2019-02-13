@@ -9,6 +9,7 @@ import {
   Image,
   KeyboardAvoidingView
 } from 'react-native';
+import ToastModule from '../components/ToastModule'
 
 export default class MeetingCodeEnterScreen extends React.Component {
   static navigationOptions = {
@@ -83,6 +84,11 @@ export default class MeetingCodeEnterScreen extends React.Component {
   }
 
   _onPressSaveDocument = () => {
+    if (this.state.code == undefined || this.state.code == '') {
+      ToastModule.show('Invalid input!', ToastModule.SHORT);
+      return;
+    }
+
     this.props.navigation.navigate('SuccessScreen');
 
   }
