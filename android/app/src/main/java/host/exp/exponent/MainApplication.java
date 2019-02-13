@@ -42,14 +42,10 @@ public class MainApplication extends ExpoApplication implements AppLoaderPackage
     return BuildConfig.DEBUG;
   }
 
-  // Needed for `react-native link`
   public List<ReactPackage> getPackages() {
     return Arrays.<ReactPackage>asList(
-        // Add your own packages here!
-        // TODO: add native modules!
-
-        // Needed for `react-native link`
         // new MainReactPackage(),
+            new ToastPackage(),
             new BackgroundTimerPackage(),
             new AndroidPackage()
     );

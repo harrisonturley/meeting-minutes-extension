@@ -9,7 +9,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
 } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import ToastModule from '../components/ToastModule'
 
 
 export default class MeetingCodeEnterScreen extends React.Component {
@@ -78,8 +78,10 @@ export default class MeetingCodeEnterScreen extends React.Component {
 
 
   _onPressEnter = () => {
-    if (this.state.code == undefined || this.state.code == '')
-        return;
+    if (this.state.code == undefined || this.state.code == '') {
+      ToastModule.show('Invalid input!', ToastModule.SHORT);
+      return;
+    }
 
     this.props.navigation.navigate('MeetingDialog');
   }
