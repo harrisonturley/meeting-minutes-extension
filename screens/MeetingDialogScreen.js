@@ -61,42 +61,49 @@ export default class MeetingMenuScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Meeting Minutes</Text>
+        </View>
+
         <View style = {{flex: 4}}>
-        <ScrollView
-          style={styles.scrollView}
-          ref={ref => this.scrollView = ref}
-          onContentSizeChange={(contentWidth, contentHeight)=>{this.scrollView.scrollToEnd({animated: true});
-          }}>
-          {
-            this.state.dialogArr.map(( item, key ) =>
-            (
-              <View key = { key } style = { styles.item }>
+          <ScrollView 
+            style={styles.scrollView}
+            ref={ref => this.scrollView = ref}
+            onContentSizeChange={(contentWidth, contentHeight)=>{
+              this.scrollView.scrollToEnd({animated: true});
+            }}> 
+            {
+              this.state.dialogArr.map(( item, key ) => (
+                <View key = { key } style = { styles.item }>
                   <Text style = { styles.item_text_style }>{ item }</Text>
                   <View style = { styles.item_separator }/>
-              </View>
-            ))
-          }
+                </View>
+              ))
+            }
           </ScrollView>
-        </View>
-        <View style={{flex: 1}}>
-          <Button title="End Meeting"  onPress={this._onEndMeeting} style={styles.endButton}
-          icon={
-            <Icon name='bell' size={15} color='black'/>
-          }
-      buttonStyle={{
-      backgroundColor: "#1995AD",
-      width: 300,
-      height: 45,
-      borderWidth: 0,
-      borderRadius: 5,}}
-      />
+        </View> 
+
+        <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
+          <Button title="End Meeting" onPress={this._onEndMeeting} style={styles.endButton}
+            icon={
+              <Icon name='bell' size={15} color='black' style={styles.buttonIconStyle}/>
+            }
+
+            buttonStyle={{
+              backgroundColor: "#1995AD",
+              width: 300,
+              height: 45,
+              borderWidth: 0,
+              borderRadius: 5
+            }}
+          />
         </View>
       </View>
     );
   }
 
   componentWillMount() {
-    AndroidMic.getAudio();
+    //AndroidMic.getAudio();
     DeviceEventEmitter.addListener('updateText', this.handleUpdateText.bind(this));
   }
 
@@ -154,27 +161,42 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#F1F1F2',
   },
+  header: {
+    backgroundColor: '#1995AD',
+    paddingTop: 40,
+    paddingBottom: 10,
+    flexDirection: 'row',
+    zIndex: 5
+  },
+  title: {
+    fontSize: 25, 
+    fontFamily: 'source-sans-pro-regular',
+    textAlign: 'center', 
+    color: '#FFFFFF',
+    flex: 1
+  },
   scrollView: {
     top: 30,
     bottom: 100,
   },
-  endButton: {
-    position: 'absolute',
-    bottom: 10,
-    paddingVertical : 20,
-    alignSelf: 'center',
-  },
-  item_text_style:
-  {
+  item_text_style: {
     alignSelf: 'center',
     fontSize: 20,
     color: '#000',
     padding: 10
   },
-  item_separator:
-  {
+  item_separator: {
     height: 1,
     width: '100%',
     backgroundColor: '#263238',
+  },
+  endButton: {
+    backgroundColor: '#1995AD',
+    marginHorizontal: 10,
+    marginVertical: 5,
+    width: window.width - 30
+  },
+  buttonIconStyle: {
+    right: 10
   }
 });
