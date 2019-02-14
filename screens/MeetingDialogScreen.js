@@ -116,12 +116,19 @@ export default class MeetingMenuScreen extends React.Component {
 
   handleUpdateText = (event) => {
     console.log("Update");
-    console.log(event);
+    console.log(event.updatedText);
   }
 
   handleCompletedText = (event) => {
     console.log("Complete");
-    console.log(event);
+    console.log(event.completedText);
+    this.setState(state => {
+      const dialogArr = state.dialogArr.concat(event.completedText);
+      return {
+        dialogArr,
+        textValue: ''
+      }
+    });
   }
 
   _onEndMeeting = () => {

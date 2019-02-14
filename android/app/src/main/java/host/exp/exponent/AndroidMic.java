@@ -99,7 +99,7 @@ public class AndroidMic extends ReactContextBaseJavaModule {
                 WritableMap params = Arguments.createMap();
                 final String s = speechRecognitionResultEventArgs.getResult().getText();
                 temporaryContent.add(s);
-                params.putString("updateText", TextUtils.join(" ", temporaryContent));
+                params.putString("updatedText", TextUtils.join(" ", temporaryContent));
                 sendEvent(reactContext, "updateText", params);
                 temporaryContent.remove(temporaryContent.size() - 1);
                 Log.e("TestLog", "Recognizing finished");
