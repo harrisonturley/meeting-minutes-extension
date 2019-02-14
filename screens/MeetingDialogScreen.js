@@ -56,6 +56,8 @@ export default class MeetingMenuScreen extends React.Component {
       textValue: '',
       dialogArr: [],
     }
+
+    this.setupComponent();
   }
 
   render() {
@@ -102,12 +104,23 @@ export default class MeetingMenuScreen extends React.Component {
     );
   }
 
-  componentWillMount() {
-    //AndroidMic.getAudio();
+  componentWillUnmount() {
+    DeviceEventEmitter.removeAllListeners();
+  }
+
+  setupComponent() {
+    AndroidMic.getAudio();
     DeviceEventEmitter.addListener('updateText', this.handleUpdateText.bind(this));
+    DeviceEventEmitter.addListener('completedText', this.handleCompletedText.bind(this));
   }
 
   handleUpdateText = (event) => {
+    console.log("Update");
+    console.log(event);
+  }
+
+  handleCompletedText = (event) => {
+    console.log("Complete");
     console.log(event);
   }
 

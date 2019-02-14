@@ -27,14 +27,12 @@ public class AndroidMic extends ReactContextBaseJavaModule {
     private MicrophoneStream microphoneStream;
     SpeechConfig speechConfig;
 
-    private final String logTag = "reco";
     private boolean continuousListeningStarted = false;
     private SpeechRecognizer reco = null;
     private AudioConfig audioInput = null;
-    private ArrayList<String> content = new ArrayList<>();
+    private ArrayList<String> temporaryContent = new ArrayList<>();
+    private ArrayList<String> completedContent = new ArrayList<>();
     private ReactContext reactContext;
-
-   // private WritableMap params = Arguments.createMap();
 
     public AndroidMic(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -80,30 +78,41 @@ public class AndroidMic extends ReactContextBaseJavaModule {
         }
 
         try {
-            content.clear();
+            temporaryContent.clear();
+            completedContent.clear();
+
+            if (reco != null && audioInput != null) {
+                final Future<Void> task = reco.startContinuousRecognitionAsync();
+                setOnTaskCompletedListener(task, result -> {
+                    continuousListeningStarted = true;
+                });
+
+                return;
+            }
 
             audioInput = AudioConfig.fromStreamInput(createMicrophoneStream());
             reco = new SpeechRecognizer(speechConfig, audioInput);
 
             Log.e("TestLog", "Starting setup of microphone");
             reco.recognizing.addEventListener((o, speechRecognitionResultEventArgs) -> {
-                WritableMap params = Arguments.createMap();
                 Log.e("TestLog", "Recognizing started");
+                WritableMap params = Arguments.createMap();
                 final String s = speechRecognitionResultEventArgs.getResult().getText();
-                content.add(s);
-                params.putString("text", TextUtils.join(" ", content));
+                temporaryContent.add(s);
+                params.putString("updateText", TextUtils.join(" ", temporaryContent));
                 sendEvent(reactContext, "updateText", params);
-                content.remove(content.size() - 1);
+                temporaryContent.remove(temporaryContent.size() - 1);
                 Log.e("TestLog", "Recognizing finished");
             });
 
             reco.recognized.addEventListener((o, speechRecognitionResultEventArgs) -> {
-                WritableMap params = Arguments.createMap();
                 Log.e("TestLog", "Recognized started");
+                WritableMap params = Arguments.createMap();
                 final String s = speechRecognitionResultEventArgs.getResult().getText();
-                content.add(s);
-                params.putString("text", TextUtils.join(" ", content));
-                sendEvent(reactContext, "updateText", params);
+                completedContent.add(s);
+                params.putString("completedText", TextUtils.join(" ", completedContent));
+                sendEvent(reactContext, "completedText", params);
+                completedContent.clear();
                 Log.e("TestLog", "Recognized finished");
             });
 
@@ -120,6 +129,7 @@ public class AndroidMic extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void cancelSpeechToText() {
+        Log.e("TestLog", "Speech to text cancelled");
         reco.stopContinuousRecognitionAsync();
         continuousListeningStarted = false;
     }
