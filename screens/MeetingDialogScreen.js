@@ -8,7 +8,8 @@ import {
 } from 'react-native';
 import { Button } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import AndroidMic from '../components/SpeechToTextListener'
+import AndroidMic from '../components/SpeechToTextListener';
+import Message from '../components/Message';
 
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
 
@@ -55,6 +56,7 @@ export default class MeetingMenuScreen extends React.Component {
     this.state = {
       textValue: '',
       dialogArr: [],
+      updatingDialogArr: false,
     }
 
     this.setupComponent();
@@ -75,17 +77,17 @@ export default class MeetingMenuScreen extends React.Component {
               this.scrollView.scrollToEnd({animated: true});
             }}> 
             {
-              this.state.dialogArr.map(( item, key ) => (
+              this.state.dialogArr.map(( message, key ) => (
                 <View key = { key } style = { styles.item }>
-                  <Text style = { styles.item_text_style }>{ item }</Text>
-                  <View style = { styles.item_separator }/>
+                  <Text style = { styles.itemTextStyle }>{ message.text }</Text>
+                  <View style = { styles.itemSeparator }/>
                 </View>
               ))
             }
           </ScrollView>
         </View> 
 
-        <View style={{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
+        <View style={{alignSelf: 'center', justifyContent: 'center', borderTopWidth: 2, flex: 1}}>
           <Button title="End Meeting" onPress={this._onEndMeeting} style={styles.endButton}
             icon={
               <Icon name='bell' size={15} color='black' style={styles.buttonIconStyle}/>
@@ -117,27 +119,58 @@ export default class MeetingMenuScreen extends React.Component {
   handleUpdateText = (event) => {
     console.log("Update");
     console.log(event.updatedText);
+
+    this.setState(state => {
+      const message = new Message();
+      message.text = event.updatedText;
+      if (state.updatingDialogArr == true && state.dialogArr.length > 0) {
+        state.dialogArr.pop();
+      }
+
+      const dialogArr = state.dialogArr.concat(message);
+
+      return {
+        dialogArr,
+        textValue: '', 
+        updatingDialogArr: true
+      }
+    });
   }
 
   handleCompletedText = (event) => {
     console.log("Complete");
     console.log(event.completedText);
+
     this.setState(state => {
-      const dialogArr = state.dialogArr.concat(event.completedText);
+      const message = new Message();
+      let dialogArr = state.dialogArr;
+      message.text = event.completedText;
+      if (message.text.trim() === "") {
+        return {
+          dialogArr,
+          textValue: '',
+          updatingDialogArr: false
+        }
+      } else if (state.updatingDialogArr == true && state.dialogArr.length > 0) {
+        state.dialogArr.pop();
+      }
+
+      dialogArr = dialogArr.concat(message);
+
       return {
         dialogArr,
-        textValue: ''
+        textValue: '',
+        updatingDialogArr: false
       }
     });
   }
 
   _onEndMeeting = () => {
-    this.state.dialogArr.push("newelement" + count);
     this.setState({
       dialogArr: this.state.dialogArr,
     });
 
-    htmlStart += "<p>newelement" + count + "</p>";
+    //htmlStart += "<p>newelement" + count + "</p>";
 
     // var RNFS = require('react-native-fs');
     // // create a path you want to write to
@@ -159,7 +192,7 @@ export default class MeetingMenuScreen extends React.Component {
     count++;
     AndroidMic.cancelSpeechToText();
     this.props.navigation.navigate('SavePdf');
-    console.log(htmlStart + htmlDialog + htmlEnd);
+    //console.log(htmlStart + htmlDialog + htmlEnd);
     this.createPDF;
   }
 
@@ -196,16 +229,17 @@ const styles = StyleSheet.create({
     flex: 1
   },
   scrollView: {
-    top: 30,
-    bottom: 100,
+    top: 0,
+    //bottom: 100,
+    bottom: 0
   },
-  item_text_style: {
+  itemTextStyle: {
     alignSelf: 'center',
     fontSize: 20,
     color: '#000',
     padding: 10
   },
-  item_separator: {
+  itemSeparator: {
     height: 1,
     width: '100%',
     backgroundColor: '#263238',
@@ -214,7 +248,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#1995AD',
     marginHorizontal: 10,
     marginVertical: 5,
-    width: window.width - 30
+    width: window.width - 30, 
   },
   buttonIconStyle: {
     right: 10
