@@ -77,7 +77,6 @@ export default class MeetingMenuScreen extends React.Component {
               this.scrollView.scrollToEnd({animated: true});
             }}> 
             {
-              // Try conditional for instructions?
               this.state.dialogArr.map(( message, key ) => (
                 <View key = { key } style = { styles.item }>
                   <Text style = { styles.itemTextStyle }>[{ message.name }] { message.text }</Text>

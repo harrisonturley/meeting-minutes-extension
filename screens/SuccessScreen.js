@@ -1,29 +1,27 @@
 import React from 'react';
 import { Text, StyleSheet, View, TouchableOpacity} from 'react-native';
-import BackgroundTimer from 'react-native-background-timer'
 
 export default class SuccessScreen extends React.Component {
-  timeoutID;
   static navigationOptions = {
     header: null,
   };
 
   render() {
     return (
-      <TouchableOpacity onPress={this._onEndMeeting} style={styles.container}>
-        <Text style = {styles.textStyle}>SUCCESS!</Text>
-      </TouchableOpacity>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Meeting Minutes</Text>
+        </View>
+
+        <TouchableOpacity onPress={this._onEndMeeting} style={styles.touchableContainer}>
+          <Text style = {styles.textStyle}>SUCCESS!</Text>
+          <Text style = {styles.subtextStyle}>Press anywhere to continue</Text>
+        </TouchableOpacity>
+      </View>
     );
   }
 
-  componentDidMount() {
-    timeoutID = BackgroundTimer.setTimeout(() => {
-      this.props.navigation.navigate('Home');
-    }, 3000);
-  } 
-
   _onEndMeeting = () => {
-    BackgroundTimer.clearTimeout(timeoutID);
     this.props.navigation.navigate('Home');
   }
 }
@@ -31,6 +29,24 @@ export default class SuccessScreen extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    backgroundColor: '#F1F1F2',
+  },
+  header: {
+    backgroundColor: '#1995AD',
+    paddingTop: 40,
+    paddingBottom: 10,
+    flexDirection: 'row',
+    zIndex: 5
+  },
+  title: {
+    fontSize: 25, 
+    fontFamily: 'source-sans-pro-regular',
+    textAlign: 'center', 
+    color: '#FFFFFF',
+    flex: 1
+  },
+  touchableContainer: {
     flex: 1,
     paddingTop: 15,
     backgroundColor: '#fff',
@@ -42,5 +58,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontFamily: 'source-sans-pro-regular',
     color: '#1995ad',
+  }, 
+  subtextStyle: {
+    fontSize: 25,
+    fontFamily: 'source-sans-pro-regular',
   }
 });
