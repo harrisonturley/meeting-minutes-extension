@@ -9,6 +9,8 @@ import MeetingCodeEnterScreen from '../screens/MeetingCodeEnterScreen';
 import SuccessScreen from '../screens/SuccessScreen';
 import MeetingDialogScreen from '../screens/MeetingDialogScreen';
 import DocumentSavingScreen from '../screens/DocumentSavingScreen';
+import SpeakerSetupScreen from '../screens/SpeakerSetupScreen';
+import PastMeetingsScreen from '../screens/PastMeetingsScreen';
 
 const AppStack = createStackNavigator({
   Home: HomeScreen,
@@ -17,7 +19,10 @@ const AppStack = createStackNavigator({
   EnterCode: MeetingCodeEnterScreen,
   MeetingDialog: MeetingDialogScreen,
   SavePdf: DocumentSavingScreen,
-  SuccessScreen: SuccessScreen});
+  SuccessScreen: SuccessScreen,
+  SpeakerSetup: SpeakerSetupScreen, 
+  PastMeetings: PastMeetingsScreen,
+});
 
 export default createAppContainer(createSwitchNavigator({
   // You could add another route here for authentication.

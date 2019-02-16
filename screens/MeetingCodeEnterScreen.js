@@ -30,7 +30,7 @@ export default class MeetingCodeEnterScreen extends React.Component {
           <Icon onPress={this._onPressBackButton}
             name='arrow-circle-o-left'
             size={35}
-            color='#000000'
+            color='#FFF' 
             style={styles.backButton}
           />
         </View>
@@ -54,10 +54,10 @@ export default class MeetingCodeEnterScreen extends React.Component {
             />
           </View>
 
-          <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 1}}>
+          <View style = {{alignSelf: 'center', justifyContent: 'center', marginVertical: 10}}>
             <Button title="Enter"  onPress={this._onPressEnter} style={styles.enterButton}
               icon={
-                <Icon name='play' size ={15} color='white' style={styles.buttonIconStyle}/>
+                <Icon name='play' size={15} color='white' style={styles.buttonIconStyle}/>
               }
 
               buttonStyle={{
@@ -70,7 +70,7 @@ export default class MeetingCodeEnterScreen extends React.Component {
             />
           </View>
 
-          <View style = {{ height: 60 }}></View>
+          <View style = {{height: 60}}/>
         </KeyboardAvoidingView>
       </View>
     );
@@ -105,10 +105,8 @@ const styles = StyleSheet.create({
     fontFamily: 'source-sans-pro-regular',
     textShadowColor: "#1995ad",
     textShadowRadius: 20,
-    marginHorizontal: 10,
-    marginVertical: 5, 
     width: window.width - 30,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   enterButton: {
     backgroundColor: '#1995AD',
@@ -150,8 +148,8 @@ const styles = StyleSheet.create({
   welcomeImage: {
     height: 150,
     resizeMode: 'contain',
-    padding: 10,
-    marginTop: 20
+    marginHorizontal: 10,
+    marginBottom: 25
   },
   textInputContainer: {
     height: 50,

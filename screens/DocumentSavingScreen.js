@@ -78,6 +78,8 @@ export default class MeetingCodeEnterScreen extends React.Component {
               }}
             />
           </View> 
+
+          <View style = {{height: 60}}/>
         </KeyboardAvoidingView>
       </View>
     );
@@ -93,7 +95,8 @@ export default class MeetingCodeEnterScreen extends React.Component {
 
   }
   _onPressCancelButton = () => {
-    
+    ToastModule.show('Meeting saving cancelled!', ToastModule.SHORT);
+    this.props.navigation.navigate('Home'); 
   }
 }
 
@@ -113,7 +116,7 @@ const styles = StyleSheet.create({
     height: 150,
     resizeMode: 'contain', 
     marginHorizontal: 10,
-    marginVertical: 5
+    marginBottom: 25
   }, 
   instructionText: {
     color: '#000000',
@@ -124,7 +127,6 @@ const styles = StyleSheet.create({
     textShadowRadius: 20, 
     width: window.width - 30,
     textAlign: 'center',
-    //flex: 0.2
   },
   title: {
     fontSize: 25, 

@@ -6,7 +6,7 @@ import {
   ScrollView,
   DeviceEventEmitter,
 } from 'react-native';
-import { Button } from 'react-native';
+import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AndroidMic from '../components/SpeechToTextListener';
 import Message from '../components/Message';
@@ -77,9 +77,10 @@ export default class MeetingMenuScreen extends React.Component {
               this.scrollView.scrollToEnd({animated: true});
             }}> 
             {
+              // Try conditional for instructions?
               this.state.dialogArr.map(( message, key ) => (
                 <View key = { key } style = { styles.item }>
-                  <Text style = { styles.itemTextStyle }>{ message.text }</Text>
+                  <Text style = { styles.itemTextStyle }>[{ message.name }] { message.text }</Text>
                   <View style = { styles.itemSeparator }/>
                 </View>
               ))
@@ -87,10 +88,12 @@ export default class MeetingMenuScreen extends React.Component {
           </ScrollView>
         </View> 
 
-        <View style={{alignSelf: 'center', justifyContent: 'center', borderTopWidth: 2, flex: 1}}>
+        <View style={{borderWidth: 1, width: window.width}}/>
+
+        <View style={{alignSelf: 'center', justifyContent: 'center', marginVertical: 25}}>
           <Button title="End Meeting" onPress={this._onEndMeeting} style={styles.endButton}
             icon={
-              <Icon name='bell' size={15} color='black' style={styles.buttonIconStyle}/>
+              <Icon name='bell' style={styles.buttonIcon} size={15} color='white'/>
             }
 
             buttonStyle={{
@@ -112,7 +115,7 @@ export default class MeetingMenuScreen extends React.Component {
 
   setupComponent() {
     AndroidMic.getAudio();
-    DeviceEventEmitter.addListener('updateText', this.handleUpdateText.bind(this));
+    DeviceEventEmitter.addListener('updatedText', this.handleUpdateText.bind(this));
     DeviceEventEmitter.addListener('completedText', this.handleCompletedText.bind(this));
   }
 
@@ -230,7 +233,6 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     top: 0,
-    //bottom: 100,
     bottom: 0
   },
   itemTextStyle: {
@@ -245,12 +247,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#263238',
   },
   endButton: {
-    backgroundColor: '#1995AD',
     marginHorizontal: 10,
     marginVertical: 5,
     width: window.width - 30, 
   },
-  buttonIconStyle: {
+  buttonIcon: {
     right: 10
   }
 });

@@ -100,7 +100,7 @@ public class AndroidMic extends ReactContextBaseJavaModule {
                 final String s = speechRecognitionResultEventArgs.getResult().getText();
                 temporaryContent.add(s);
                 params.putString("updatedText", TextUtils.join(" ", temporaryContent));
-                sendEvent(reactContext, "updateText", params);
+                sendEvent(reactContext, "updatedText", params);
                 temporaryContent.remove(temporaryContent.size() - 1);
                 Log.e("TestLog", "Recognizing finished");
             });
@@ -114,6 +114,14 @@ public class AndroidMic extends ReactContextBaseJavaModule {
                 sendEvent(reactContext, "completedText", params);
                 completedContent.clear();
                 Log.e("TestLog", "Recognized finished");
+            });
+
+            reco.canceled.addEventListener((s, e) -> {
+                Log.e("TestLog", "Cancelled, reason = " + e.getErrorDetails());
+            });
+
+            reco.sessionStopped.addEventListener((s, e) -> {
+                Log.e("TestLog", "Session stopped");
             });
 
             final Future<Void> task = reco.startContinuousRecognitionAsync();

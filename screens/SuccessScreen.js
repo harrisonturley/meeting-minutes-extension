@@ -19,7 +19,7 @@ export default class SuccessScreen extends React.Component {
   componentDidMount() {
     timeoutID = BackgroundTimer.setTimeout(() => {
       this.props.navigation.navigate('Home');
-    }, 5000);
+    }, 3000);
   } 
 
   _onEndMeeting = () => {

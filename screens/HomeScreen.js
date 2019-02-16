@@ -88,11 +88,11 @@ export default class HomeScreen extends React.Component {
   }
 
   _onPressVerification = () => {
-
+    this.props.navigation.navigate('SpeakerSetup');
   }
 
   _onPressPastMeetings = () => {
-
+    this.props.navigation.navigate('PastMeetings');
   }
 }
 
