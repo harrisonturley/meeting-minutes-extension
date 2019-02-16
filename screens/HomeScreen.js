@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Text,
   View,
+  BackHandler,
 } from 'react-native';
 
 export default class HomeScreen extends React.Component {
@@ -81,6 +82,15 @@ export default class HomeScreen extends React.Component {
         <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 2}}></View>
       </View>
     );
+  }
+
+  componentDidMount() {
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress.bind(this));
+  }
+
+  handleBackPress = () => {
+    // Need to clear navigation stack here
+    return true;
   }
 
   _onPressMeetingSetup = () => {
