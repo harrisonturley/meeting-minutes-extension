@@ -54,7 +54,6 @@ export default class MeetingMenuScreen extends React.Component {
     super(props);
 
     this.state = {
-      textValue: '',
       dialogArr: [],
       updatingDialogArr: false,
     }
@@ -130,10 +129,9 @@ export default class MeetingMenuScreen extends React.Component {
       }
 
       const dialogArr = state.dialogArr.concat(message);
-
+      
       return {
         dialogArr,
-        textValue: '', 
         updatingDialogArr: true
       }
     });
@@ -150,7 +148,6 @@ export default class MeetingMenuScreen extends React.Component {
       if (message.text.trim() === "") {
         return {
           dialogArr,
-          textValue: '',
           updatingDialogArr: false
         }
       } else if (state.updatingDialogArr == true && state.dialogArr.length > 0) {
@@ -161,7 +158,6 @@ export default class MeetingMenuScreen extends React.Component {
 
       return {
         dialogArr,
-        textValue: '',
         updatingDialogArr: false
       }
     });

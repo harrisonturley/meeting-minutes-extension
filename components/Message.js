@@ -3,7 +3,7 @@ export default class Message {
     text;
 
     constructor() {
-        name = 'Unknown';
-        text = '';
+        this.name = "Unknown";
+        this.text = "";
     }
 }
