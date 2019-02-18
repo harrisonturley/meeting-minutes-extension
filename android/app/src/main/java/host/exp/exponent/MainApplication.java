@@ -33,6 +33,9 @@ import expo.modules.taskManager.TaskManagerPackage;
 import expolib_v1.okhttp3.OkHttpClient;
 // Needed for `react-native link`
 // import com.facebook.react.ReactApplication;
+import com.christopherdro.htmltopdf.RNHTMLtoPDFPackage;
+import com.rnfs.RNFSPackage;
+import com.ocetnik.timer.BackgroundTimerPackage;
 import com.ocetnik.timer.BackgroundTimerPackage;
 
 public class MainApplication extends ExpoApplication implements AppLoaderPackagesProviderInterface<ReactPackage> {
@@ -45,8 +48,10 @@ public class MainApplication extends ExpoApplication implements AppLoaderPackage
   public List<ReactPackage> getPackages() {
     return Arrays.<ReactPackage>asList(
         // new MainReactPackage(),
-            new ToastPackage(),
+            new RNHTMLtoPDFPackage(),
+            new RNFSPackage(),
             new BackgroundTimerPackage(),
+            new ToastPackage(),
             new AndroidPackage()
     );
   }

@@ -5,8 +5,7 @@ import {
   StyleSheet,
   Text,
   View,
-  ScrollView,
-  DeviceEventEmitter,
+  Platform
 } from 'react-native';
 
 export default class SpeakerSetupScreen extends React.Component {
@@ -53,7 +52,12 @@ const styles = StyleSheet.create({
         paddingTop: 40,
         paddingBottom: 10,
         flexDirection: 'row',
-        zIndex: 5
+        zIndex: 5,
+        ...Platform.select({
+            android: {
+                elevation: 10
+            }
+        })
     }, 
     backButton: {
         position: 'absolute',

@@ -7,6 +7,7 @@ import {
   Text,
   View,
   BackHandler,
+  Platform,
 } from 'react-native';
 
 export default class HomeScreen extends React.Component {
@@ -142,7 +143,12 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: '#1995AD',
     height: 75,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    ...Platform.select({
+      android: {
+        elevation: 10
+      }
+    })
   },
   buttonIconStyle: {
     right: 10

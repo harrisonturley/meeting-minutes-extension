@@ -7,7 +7,8 @@ import {
   View,
   TextInput,
   Image,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Platform
 } from 'react-native';
 import ToastModule from '../components/ToastModule'
 
@@ -110,7 +111,12 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     paddingBottom: 10,
     flexDirection: 'row',
-    zIndex: 5
+    zIndex: 5,
+    ...Platform.select({
+      android: {
+        elevation: 10
+      }
+    })
   },
   welcomeImage: {
     height: 150,

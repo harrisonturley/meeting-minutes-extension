@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, StyleSheet, View, TouchableOpacity} from 'react-native';
+import { Text, StyleSheet, View, TouchableOpacity, Platform,} from 'react-native';
 
 export default class SuccessScreen extends React.Component {
   static navigationOptions = {
@@ -37,7 +37,12 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     paddingBottom: 10,
     flexDirection: 'row',
-    zIndex: 5
+    zIndex: 5,
+    ...Platform.select({
+      android: {
+        elevation: 10
+      }
+    })
   },
   title: {
     fontSize: 25, 

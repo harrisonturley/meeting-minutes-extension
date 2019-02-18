@@ -123,10 +123,10 @@ const styles = StyleSheet.create({
         shadowRadius: 3,
       },
       android: {
-        elevation: 20,
+        elevation: 10,
       },
     }),
-  },
+  }, 
   backButton: {
     position: 'absolute',
     left: 10,

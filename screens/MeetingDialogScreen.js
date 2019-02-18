@@ -5,7 +5,7 @@ import {
   View,
   ScrollView,
   DeviceEventEmitter,
-  BackHandler,
+  Platform
 } from 'react-native';
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -218,7 +218,12 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     paddingBottom: 10,
     flexDirection: 'row',
-    zIndex: 5
+    zIndex: 5,
+    ...Platform.select({
+      android: {
+        elevation: 10
+      }
+    })
   },
   title: {
     fontSize: 25, 
