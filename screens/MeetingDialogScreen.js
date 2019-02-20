@@ -190,9 +190,9 @@ export default class MeetingMenuScreen extends React.Component {
     
     count++;
     AndroidMic.cancelSpeechToText();
-    this.props.navigation.navigate('SavePdf');
+    this.props.navigation.navigate('SavePdf', { dialogArr: this.state.dialogArr });
     //console.log(htmlStart + htmlDialog + htmlEnd);
-    this.createPDF;
+    this.createPDF; 
   }
 
   async createPDF() {
