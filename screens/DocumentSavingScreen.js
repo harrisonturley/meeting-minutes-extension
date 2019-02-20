@@ -10,7 +10,8 @@ import {
   KeyboardAvoidingView,
   Platform
 } from 'react-native';
-import ToastModule from '../components/ToastModule'
+import ToastModule from '../components/ToastModule';
+import RNHTMLtoPDF from 'react-native-html-to-pdf';
 
 export default class MeetingCodeEnterScreen extends React.Component {
   static navigationOptions = {
@@ -86,7 +87,24 @@ export default class MeetingCodeEnterScreen extends React.Component {
     );
   }
 
+  async createPDF() {
+    let options = {
+      html: '<h1>Heading 1</h1><h2>Heading 2</h2><h3>Heading 3</h3>',
+      fileName: 'test',
+      directory: 'Documents',
+      base64: true
+    };
+
+    try {
+      const results = await RNHTMLtoPDF.convert(options)
+      console.log(results)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   _onPressSaveDocument = () => {
+    this.createPDF();
     if (this.state.code == undefined || this.state.code == '') {
       ToastModule.show('Invalid input!', ToastModule.SHORT);
       //console.log(this.props.navigation.state.params);
