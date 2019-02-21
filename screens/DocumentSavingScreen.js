@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import ToastModule from '../components/ToastModule';
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
+import RNFS from 'react-native-fs';
 import Mailer from 'react-native-mail';
 
 export default class MeetingCodeEnterScreen extends React.Component {
@@ -44,8 +45,8 @@ export default class MeetingCodeEnterScreen extends React.Component {
           <View style={styles.textInputContainer}>
             <TextInput
               style={styles.textInput}
-              placeholder="Enter code here"
-              onChangeText={(text) => this.setState({code:text})}
+              placeholder="Enter title here"
+              onChangeText={(text) => this.setState({title:text})}
             />
           </View>
         
@@ -91,15 +92,21 @@ export default class MeetingCodeEnterScreen extends React.Component {
   async createPDF() {
     let options = {
       html: '<h1>Heading 1</h1><h2>Heading 2</h2><h3>Heading 3</h3>',
-      fileName: 'test',
+      fileName: 'meetingminutes',
       directory: 'docs'
     };
 
     try {
       const results = await RNHTMLtoPDF.convert(options);
-      this.setState({filePath: results.filePath});
-      console.log(results.filePath);
-      this.handleEmail();
+      const destPath = RNFS.DocumentDirectoryPath + '/meetingminutes.pdf';
+      RNFS.moveFile(results.filePath, destPath).then((success) => {
+        console.log('Moved item');
+        console.log(destPath);
+        this.setState({filePath: destPath});
+        this.handleEmail();
+      }).catch((err) => {
+        console.log('Error ' + err.message);
+      });
     } catch (err) {
       console.error(err);
     }
@@ -107,18 +114,19 @@ export default class MeetingCodeEnterScreen extends React.Component {
 
   handleEmail() {
     Mailer.mail({
-      subject: 'Meeting Minutes: ' + this.state.code,
+      subject: 'Meeting Minutes: ' + this.state.title,
       recipients: [],
       ccRecipients: [],
       bccRecipients: [],
-      body: '<h1>Meeting Minutes</h1><p>Please find attached the notes from our meeting earlier entitled ' + this.state.code + '</p>',
+      body: '<p>Please find attached the notes from our meeting earlier entitled ' + this.state.title + '</p>',
       isHTML: true,
       attachment: {
         path: this.state.filePath,  
         type: 'pdf',   
-        name: this.state.code,   
+        name: this.state.title,   
       }
     }, (error, event) => {
+      console.log('Error sending email: ' + error.message);
       Alert.alert(
         error,
         event,
@@ -133,7 +141,7 @@ export default class MeetingCodeEnterScreen extends React.Component {
 
   _onPressSaveDocument = () => {
     this.createPDF(); 
-    if (this.state.code == undefined || this.state.code == '') {
+    if (this.state.title == undefined || this.state.title == '') {
       ToastModule.show('Invalid input!', ToastModule.SHORT);
       //console.log(this.props.navigation.state.params);
       return;
