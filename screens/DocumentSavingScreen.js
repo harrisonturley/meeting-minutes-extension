@@ -92,7 +92,7 @@ export default class MeetingCodeEnterScreen extends React.Component {
     let options = {
       html: '<h1>Heading 1</h1><h2>Heading 2</h2><h3>Heading 3</h3>',
       fileName: 'test',
-      base64: true
+      directory: 'docs'
     };
 
     try {
@@ -111,12 +111,12 @@ export default class MeetingCodeEnterScreen extends React.Component {
       recipients: [],
       ccRecipients: [],
       bccRecipients: [],
-      body: '<h1>MeetingMinutes</h1><p>Please find attached the notes from our meeting earlier entitled ' + this.state.code + '</p>',
+      body: '<h1>Meeting Minutes</h1><p>Please find attached the notes from our meeting earlier entitled ' + this.state.code + '</p>',
       isHTML: true,
       attachment: {
-        path: this.state.filePath,  // The absolute path of the file from which to read data.
-        type: 'pdf',   // Mime Type: jpg, png, doc, ppt, html, pdf, csv
-        name: this.state.code,   // Optional: Custom filename for attachment
+        path: this.state.filePath,  
+        type: 'pdf',   
+        name: this.state.code,   
       }
     }, (error, event) => {
       Alert.alert(
