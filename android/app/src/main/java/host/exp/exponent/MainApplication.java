@@ -36,7 +36,7 @@ import expolib_v1.okhttp3.OkHttpClient;
 import com.christopherdro.htmltopdf.RNHTMLtoPDFPackage;
 import com.rnfs.RNFSPackage;
 import com.ocetnik.timer.BackgroundTimerPackage;
-import com.ocetnik.timer.BackgroundTimerPackage;
+import com.chirag.RNMail.*;
 
 public class MainApplication extends ExpoApplication implements AppLoaderPackagesProviderInterface<ReactPackage> {
 
@@ -52,6 +52,7 @@ public class MainApplication extends ExpoApplication implements AppLoaderPackage
             new RNFSPackage(),
             new BackgroundTimerPackage(),
             new ToastPackage(),
+            new RNMail(),
             new AndroidPackage()
     );
   }

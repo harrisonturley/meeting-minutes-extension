@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import ToastModule from '../components/ToastModule';
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
+import Mailer from 'react-native-mail';
 
 export default class MeetingCodeEnterScreen extends React.Component {
   static navigationOptions = {
@@ -91,20 +92,47 @@ export default class MeetingCodeEnterScreen extends React.Component {
     let options = {
       html: '<h1>Heading 1</h1><h2>Heading 2</h2><h3>Heading 3</h3>',
       fileName: 'test',
-      directory: 'Documents',
       base64: true
     };
 
     try {
-      const results = await RNHTMLtoPDF.convert(options)
-      console.log(results)
+      const results = await RNHTMLtoPDF.convert(options);
+      this.setState({filePath: results.filePath});
+      console.log(results.filePath);
+      this.handleEmail();
     } catch (err) {
-      console.error(err)
+      console.error(err);
     }
   }
 
+  handleEmail() {
+    Mailer.mail({
+      subject: 'Meeting Minutes: ' + this.state.code,
+      recipients: [],
+      ccRecipients: [],
+      bccRecipients: [],
+      body: '<h1>MeetingMinutes</h1><p>Please find attached the notes from our meeting earlier entitled ' + this.state.code + '</p>',
+      isHTML: true,
+      attachment: {
+        path: this.state.filePath,  // The absolute path of the file from which to read data.
+        type: 'pdf',   // Mime Type: jpg, png, doc, ppt, html, pdf, csv
+        name: this.state.code,   // Optional: Custom filename for attachment
+      }
+    }, (error, event) => {
+      Alert.alert(
+        error,
+        event,
+        [
+          {text: 'Ok', onPress: () => console.log('OK: Email Error Response')},
+          {text: 'Cancel', onPress: () => console.log('CANCEL: Email Error Response')}
+        ],
+        { cancelable: true }
+      )
+    });
+  }
+
   _onPressSaveDocument = () => {
-    this.createPDF();
+    this.createPDF(); 
     if (this.state.code == undefined || this.state.code == '') {
       ToastModule.show('Invalid input!', ToastModule.SHORT);
       //console.log(this.props.navigation.state.params);
