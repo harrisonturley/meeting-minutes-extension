@@ -89,36 +89,27 @@ export default class MeetingCodeEnterScreen extends React.Component {
     );
   }
 
-  async createPDF() {
-    let options = {
-      html: '<h1>Heading 1</h1><h2>Heading 2</h2><h3>Heading 3</h3>',
-      fileName: 'meetingminutes',
-      directory: 'docs'
-    };
+  craftEmail() {
+    const textFromMeeting = this.props.navigation.state.params.dialogArr;
+    var paragraphForm = '';
+    console.log(textFromMeeting); 
+    textFromMeeting.forEach(message => {
+      paragraphForm.concat('<p>[' + message.name + '] ' + message.text + '</p>');
+      console.log('Message: ' + message);
+      console.log('Current paragraph form: ' + paragraphForm);
+    });
 
-    try {
-      const results = await RNHTMLtoPDF.convert(options);
-      const destPath = RNFS.DocumentDirectoryPath + '/meetingminutes.pdf';
-      RNFS.moveFile(results.filePath, destPath).then((success) => {
-        console.log('Moved item');
-        console.log(destPath);
-        this.setState({filePath: destPath});
-        this.handleEmail();
-      }).catch((err) => {
-        console.log('Error ' + err.message);
-      });
-    } catch (err) {
-      console.error(err);
-    }
+    this.handleEmail(paragraphForm);
   }
 
-  handleEmail() {
+  handleEmail(message) {
+    console.log('Final message passed: ' + message);
     Mailer.mail({
       subject: 'Meeting Minutes: ' + this.state.title,
       recipients: [],
       ccRecipients: [],
       bccRecipients: [],
-      body: '<p>Please find attached the notes from our meeting earlier entitled ' + this.state.title + '</p>',
+      body: '<p>Please find attached the notes from our meeting earlier entitled: ' + this.state.title + '</p>' + message,
       isHTML: true,
       attachment: {
         path: this.state.filePath,  
@@ -140,13 +131,13 @@ export default class MeetingCodeEnterScreen extends React.Component {
   }
 
   _onPressSaveDocument = () => {
-    this.createPDF(); 
     if (this.state.title == undefined || this.state.title == '') {
       ToastModule.show('Invalid input!', ToastModule.SHORT);
       //console.log(this.props.navigation.state.params);
       return;
     }
 
+    this.craftEmail(); 
     this.props.navigation.navigate('SuccessScreen');
 
   }

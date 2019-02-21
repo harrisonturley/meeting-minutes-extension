@@ -168,43 +168,9 @@ export default class MeetingMenuScreen extends React.Component {
     this.setState({
       dialogArr: this.state.dialogArr,
     });
-
-    //htmlStart += "<p>newelement" + count + "</p>";
-
-    // var RNFS = require('react-native-fs');
-    // // create a path you want to write to
-    // var path = RNFS.DocumentDirectoryPath + '/test.html';
-
-    // // write the file
-    // RNFS.writeFile(path, '<text>Boys we got him</text>', 'utf8')
-    // .then((success) => {
-    // console.log('FILE WRITTEN!');
-    // })
-    // .catch((err) => {
-    // console.log(err.message);
-    // });
-
-    // this.setState(prevState => ({
-    //   dialogArr: [...prevState.dialogArr, newelement]
-    // }))
     
-    count++;
     AndroidMic.cancelSpeechToText();
     this.props.navigation.navigate('SavePdf', { dialogArr: this.state.dialogArr });
-    //console.log(htmlStart + htmlDialog + htmlEnd);
-    this.createPDF; 
-  }
-
-  async createPDF() {
-    let options = {
-      html: htmlStart + htmlDialog + htmlEnd,
-      fileName: 'test',
-      directory: 'Documents',
-    };
-
-    let file = await RNHTMLtoPDF.convert(options)
-    console.log(file.filePath);
-    alert(file.filePath);
   }
 }
 
