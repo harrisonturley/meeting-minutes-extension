@@ -17,7 +17,6 @@
     "react-native-background-timer": "^2.1.1",
     "react-native-elements": "^1.0.0-beta7",
     "react-native-fs": "^2.13.3",
-    "react-native-html-to-pdf": "git+https://github.com/Gazfay/react-native-html-to-pdf-fixed.git",
     "react-native-keyboard-aware-scroll-view": "^0.8.0",
     "react-native-mail": "^3.0.7",
     "react-native-my-native-module": "^1.0.1",
