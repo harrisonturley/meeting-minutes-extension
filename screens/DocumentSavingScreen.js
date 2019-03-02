@@ -90,20 +90,11 @@ export default class MeetingCodeEnterScreen extends React.Component {
 
   craftEmail() {
     const textFromMeeting = this.props.navigation.state.params.dialogArr;
-    var paragraphForm = '';
-    console.log(textFromMeeting); 
+    var paragraphForm = "";
+    
     for (i = 0; i < textFromMeeting.length; i++) {
-      paragraphForm.concat('<p>[' + textFromMeeting[i].name + '] ' + textFromMeeting[i].text + '</p>');
-      console.log('Message: ' + textFromMeeting[i]);
-      console.log('Current paragraph form: ' + textFromMeeting[i]);
+      paragraphForm = paragraphForm.concat('<p>[' + textFromMeeting[i].name + '] ' + textFromMeeting[i].text + '</p>');
     }
-
-    /*
-    textFromMeeting.forEach(message => {
-      paragraphForm.concat('<p>[' + message.name + '] ' + message.text + '</p>');
-      console.log('Message: ' + message);
-      console.log('Current paragraph form: ' + paragraphForm);
-    });*/
 
     this.handleEmail(paragraphForm);
   }
