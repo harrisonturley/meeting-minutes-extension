@@ -11,9 +11,8 @@ import {
   Platform
 } from 'react-native';
 import ToastModule from '../components/ToastModule';
-import RNHTMLtoPDF from 'react-native-html-to-pdf';
-import RNFS from 'react-native-fs';
 import Mailer from 'react-native-mail';
+import Message from '../components/Message';
 
 export default class MeetingCodeEnterScreen extends React.Component {
   static navigationOptions = {
@@ -93,11 +92,18 @@ export default class MeetingCodeEnterScreen extends React.Component {
     const textFromMeeting = this.props.navigation.state.params.dialogArr;
     var paragraphForm = '';
     console.log(textFromMeeting); 
+    for (i = 0; i < textFromMeeting.length; i++) {
+      paragraphForm.concat('<p>[' + textFromMeeting[i].name + '] ' + textFromMeeting[i].text + '</p>');
+      console.log('Message: ' + textFromMeeting[i]);
+      console.log('Current paragraph form: ' + textFromMeeting[i]);
+    }
+
+    /*
     textFromMeeting.forEach(message => {
       paragraphForm.concat('<p>[' + message.name + '] ' + message.text + '</p>');
       console.log('Message: ' + message);
       console.log('Current paragraph form: ' + paragraphForm);
-    });
+    });*/
 
     this.handleEmail(paragraphForm);
   }
