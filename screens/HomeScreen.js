@@ -48,41 +48,13 @@ export default class HomeScreen extends React.Component {
             />
         </View>
 
-        <View style = {{alignSelf: 'center', justifyContent: 'center', padding: 10, flex: 1}}>
-          <Button title="Speaker Recognition Setup" onPress={this._onPressVerification} style={styles.setupButton}
-            icon={
-              <Icon name='cog' size={15} color='white' style={styles.buttonIconStyle}/>
-            }
-
-            buttonStyle={{
-              backgroundColor: "#A1D2E6",
-              width: 300,
-              height: 50,
-              borderWidth: 0,
-              borderRadius: 5
-            }}
-          />
-        </View>
-
-        <View style = {{alignSelf: 'center', justifyContent: 'center', padding: 10, flex: 1}}>
-          <Button title="View Past Meetings" onPress={this._onPressPastMeetings} style={styles.setupButton}
-            icon={
-              <Icon name='send-o' size={15} color='white' style={styles.buttonIconStyle}/>
-            }
-
-            buttonStyle={{
-              backgroundColor: "#A1D2E6",
-              width: 300,
-              height: 50,
-              borderWidth: 0,
-              borderRadius: 5
-            }}
-          />
-        </View>
-
         <View style = {{alignSelf: 'center', justifyContent: 'center', flex: 2}}></View>
       </View>
     );
+  }
+
+  _onPressMeetingSetup = () => {
+    this.props.navigation.navigate('MeetingDialog');
   }
 
   componentDidMount() {
@@ -90,20 +62,7 @@ export default class HomeScreen extends React.Component {
   }
 
   handleBackPress = () => {
-    // Need to clear navigation stack here
     return true;
-  }
-
-  _onPressMeetingSetup = () => {
-    this.props.navigation.navigate('EnterCode');
-  }
-
-  _onPressVerification = () => {
-    this.props.navigation.navigate('SpeakerSetup');
-  }
-
-  _onPressPastMeetings = () => {
-    this.props.navigation.navigate('PastMeetings');
   }
 }
 
