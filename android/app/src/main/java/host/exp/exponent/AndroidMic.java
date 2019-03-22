@@ -189,7 +189,7 @@ public class AndroidMic extends ReactContextBaseJavaModule {
 
     /**
      * Sends a given event to react-native across an async bridge
-     * 
+     *
      * @param reactContext
      * @param eventName
      * @param params
