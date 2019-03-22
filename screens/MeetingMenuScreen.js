@@ -1,21 +1,24 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Button} from 'react-native-elements';
-import {Header} from 'react-native-elements';
 import {
-  Image,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
   Platform,
 } from 'react-native';
 
+/**
+ * Purpose: Provide the user with the option to start a meeting or join an existing one
+ */
 export default class MeetingMenuScreen extends React.Component {
   static navigationOptions = {
     header: null
   };
 
+  /**
+   * Purpose: Render the meeting options menu
+   */
   render() {
     return (
       <View style={styles.container}>
@@ -67,21 +70,32 @@ export default class MeetingMenuScreen extends React.Component {
     );
   }
 
+  /**
+   * Purpose: Generate a new meeting
+   */
   _onPressNewMeeting = () => {
     var generatedCode = "GU7FJ";
     this.props.navigation.navigate('NewMeeting', {data: {code: generatedCode}});
   }
 
+  /**
+   * Purpose: Join an existing meeting
+   */
   _onPressJoinMeeting = () => {
     this.props.navigation.navigate('EnterCode');
   }
 
+  /**
+   * Purpose: Override normal functionality of back button
+   */
   _onPressBackButton = () => {
     this.props.navigation.pop();
   }
-
 }
 
+/**
+ * Purpose: Make a randomized ID
+ */
 function makeid() {
   var text = "";
   var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -92,6 +106,9 @@ function makeid() {
   return text;
 }
 
+/**
+ * Purpose: Styles for the meeting menu screen
+ */
 const styles = StyleSheet.create({
   container: {
     flex: 1,

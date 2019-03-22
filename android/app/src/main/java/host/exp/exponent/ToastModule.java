@@ -15,15 +15,30 @@ public class ToastModule extends ReactContextBaseJavaModule {
     private static final String DURATION_SHORT_KEY = "SHORT";
     private static final String DURATION_LONG_KEY = "LONG";
 
+    /**
+     * Constructor for the toast module
+     *
+     * @param reactContext
+     */
     public ToastModule(ReactApplicationContext reactContext) {
         super(reactContext);
     }
 
+    /**
+     * Gets the name of the module
+     *
+     * @return the name of the module, ToastModule
+     */
     @Override
     public String getName() {
         return "ToastModule";
     }
 
+    /**
+     * Function to pull any constants needed in the react-native code
+     *
+     * @return a map of the constants to their values
+     */
     @Override
     public Map<String, Object> getConstants() {
         final Map<String, Object> constants = new HashMap<>();
@@ -32,6 +47,12 @@ public class ToastModule extends ReactContextBaseJavaModule {
         return constants;
     }
 
+    /**
+     * Function that can be called from react-native, shows a message as a toast
+     *
+     * @param message to be shown
+     * @param duration for the message to be shown
+     */
     @ReactMethod
     public void show(String message, int duration) {
         Toast.makeText(getReactApplicationContext(), message, duration).show();

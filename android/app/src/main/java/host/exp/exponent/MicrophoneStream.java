@@ -22,27 +22,47 @@ public class MicrophoneStream extends PullAudioInputStreamCallback {
     private final AudioStreamFormat format;
     private AudioRecord recorder;
 
+    /**
+     * Constructs a microphone stream
+     */
     public MicrophoneStream() {
         this.format = AudioStreamFormat.getWaveFormatPCM(SAMPLE_RATE, (short)16, (short)1);
         this.initMic();
     }
 
+    /**
+     * Gets the format of the audio stream
+     *
+     * @return the audio stream format for the microphone stream
+     */
     public AudioStreamFormat getFormat() {
         return this.format;
     }
 
+    /**
+     * Reads a set number of bytes from the stream
+     *
+     * @param bytes to receive the data
+     * @return number of bytes read
+     */
     @Override
     public int read(byte[] bytes) {
         long ret = this.recorder.read(bytes, 0, bytes.length);
         return (int)ret;
     }
 
+    /**
+     * Properly shuts down the audio recorder
+     */
     @Override
     public void close() {
         this.recorder.release();
         this.recorder = null;
     }
 
+    /**
+     * Initializes the microphone stream
+     */
     private void initMic() {
         // Note: currently, the Speech SDK support 16 kHz sample rate, 16 bit samples, mono (single-channel) only.
         AudioFormat af = new AudioFormat.Builder()

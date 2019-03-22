@@ -12,12 +12,17 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import AndroidMic from '../components/SpeechToTextListener';
 import Message from '../components/Message'; 
 
-
-export default class MeetingMenuScreen extends React.Component {
+/**
+ * Purpose: Provide a screen where the dialog in the meeting is recorded
+ */
+export default class MeetingDialogScreen extends React.Component {
   static navigationOptions = {
     header: null
   };
 
+  /**
+   * Purpose: Intialize any required state params
+   */
   constructor(props) {
     super(props);
 
@@ -29,6 +34,9 @@ export default class MeetingMenuScreen extends React.Component {
     this.setupComponent();
   }
 
+  /**
+   * Purpose: Render the dialog screen, updating everytime new audio is detected
+   */
   render() {
     return (
       <View style={styles.container}>
@@ -46,7 +54,7 @@ export default class MeetingMenuScreen extends React.Component {
             {
               this.state.dialogArr.map(( message, key ) => (
                 <View key = { key } style = { styles.item }>
-                  <Text style = { styles.itemTextStyle }>[{ message.name }] { message.text }</Text>
+                  <Text style = { styles.itemTextStyle }>{ message.text }</Text>
                   <View style = { styles.itemSeparator }/>
                 </View>
               ))
@@ -75,16 +83,25 @@ export default class MeetingMenuScreen extends React.Component {
     );
   }
 
+  /**
+   * Purpose: Unmount listeners when leaving the screen, so no new messages will be recorded
+   */
   componentWillUnmount() {
     DeviceEventEmitter.removeAllListeners();
   }
 
+  /**
+   * Purpose: Set up listeners for getting text from native code
+   */
   setupComponent() {
     AndroidMic.getAudio();
     DeviceEventEmitter.addListener('updatedText', this.handleUpdateText.bind(this));
     DeviceEventEmitter.addListener('completedText', this.handleCompletedText.bind(this));
   }
 
+  /**
+   * Purpose: Update some pre-existing message with new dialog
+   */
   handleUpdateText = (event) => {
     console.log("Update");
     console.log(event.updatedText);
@@ -105,6 +122,9 @@ export default class MeetingMenuScreen extends React.Component {
     });
   }
 
+  /**
+   * Purpose: Add the finalized message to the dialog array
+   */
   handleCompletedText = (event) => {
     console.log("Complete");
     console.log(event.completedText);
@@ -131,6 +151,9 @@ export default class MeetingMenuScreen extends React.Component {
     });
   }
 
+  /**
+   * Purpose: Complete the meeting, storing the completed dialog in state
+   */
   _onEndMeeting = () => {
     this.setState({
       dialogArr: this.state.dialogArr,
@@ -141,6 +164,9 @@ export default class MeetingMenuScreen extends React.Component {
   }
 }
 
+/**
+ * Purpose: Styles for the dialog screen
+ */
 const styles = StyleSheet.create({
   container: {
     flex: 1,

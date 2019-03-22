@@ -34,6 +34,11 @@ public class AndroidMic extends ReactContextBaseJavaModule {
     private ArrayList<String> completedContent = new ArrayList<>();
     private ReactContext reactContext;
 
+    /**
+     * Constructs the android mic object
+     *
+     * @param reactContext
+     */
     public AndroidMic(ReactApplicationContext reactContext) {
         super(reactContext);
         this.reactContext = reactContext;
@@ -47,11 +52,21 @@ public class AndroidMic extends ReactContextBaseJavaModule {
         }
     }
 
+    /**
+     * Gets the module name
+     *
+     * @return the string value of the module name, AndroidMic
+     */
     @Override
     public String getName() {
         return "AndroidMic";
     }
 
+    /**
+     * Sets up the microphone stream
+     *
+     * @return the set up microphone stream object
+     */
     private MicrophoneStream createMicrophoneStream() {
         if (microphoneStream != null) {
             microphoneStream.close();
@@ -62,9 +77,11 @@ public class AndroidMic extends ReactContextBaseJavaModule {
         return microphoneStream;
     }
 
+    /**
+     * Function to set up event handlers for audio that has been captured, calling to Azure to handle audio processing.
+     */
     @ReactMethod
     public void getAudio() {
-        Log.e("TestText", "getAudio was called!");
         if (continuousListeningStarted) {
             if (reco != null) {
                 final Future<Void> task = reco.stopContinuousRecognitionAsync();
@@ -93,35 +110,30 @@ public class AndroidMic extends ReactContextBaseJavaModule {
             audioInput = AudioConfig.fromStreamInput(createMicrophoneStream());
             reco = new SpeechRecognizer(speechConfig, audioInput);
 
-            Log.e("TestLog", "Starting setup of microphone");
             reco.recognizing.addEventListener((o, speechRecognitionResultEventArgs) -> {
-                Log.e("TestLog", "Recognizing started");
                 WritableMap params = Arguments.createMap();
                 final String s = speechRecognitionResultEventArgs.getResult().getText();
                 temporaryContent.add(s);
                 params.putString("updatedText", TextUtils.join(" ", temporaryContent));
                 sendEvent(reactContext, "updatedText", params);
                 temporaryContent.remove(temporaryContent.size() - 1);
-                Log.e("TestLog", "Recognizing finished");
             });
 
             reco.recognized.addEventListener((o, speechRecognitionResultEventArgs) -> {
-                Log.e("TestLog", "Recognized started");
                 WritableMap params = Arguments.createMap();
                 final String s = speechRecognitionResultEventArgs.getResult().getText();
                 completedContent.add(s);
                 params.putString("completedText", TextUtils.join(" ", completedContent));
                 sendEvent(reactContext, "completedText", params);
                 completedContent.clear();
-                Log.e("TestLog", "Recognized finished");
             });
 
             reco.canceled.addEventListener((s, e) -> {
-                Log.e("TestLog", "Cancelled, reason = " + e.getErrorDetails());
+                Log.e("AndroidMic", "Cancelled, reason = " + e.getErrorDetails());
             });
 
             reco.sessionStopped.addEventListener((s, e) -> {
-                Log.e("TestLog", "Session stopped");
+                Log.e("AndroidMic", "Session stopped");
             });
 
             final Future<Void> task = reco.startContinuousRecognitionAsync();
@@ -129,19 +141,27 @@ public class AndroidMic extends ReactContextBaseJavaModule {
                 continuousListeningStarted = true;
             });
 
-            Log.e("TestLog", "Completed setup of microphone");
         } catch (Exception ex) {
             Log.e("AndroidMic", "Failed in getting audio");
         }
     }
 
+    /**
+     * Cancels the continuous recognition of audio
+     */
     @ReactMethod
     public void cancelSpeechToText() {
-        Log.e("TestLog", "Speech to text cancelled");
         reco.stopContinuousRecognitionAsync();
         continuousListeningStarted = false;
     }
 
+    /**
+     * Calls the onComplete function when task is complete
+     *
+     * @param task
+     * @param listener
+     * @param <T>
+     */
     private <T> void setOnTaskCompletedListener(Future<T> task, OnTaskCompletedListener<T> listener) {
         s_executorService.submit(() -> {
             T result = task.get();
@@ -150,17 +170,31 @@ public class AndroidMic extends ReactContextBaseJavaModule {
         });
     }
 
+    /**
+     * Provides an interface for the completion of a task
+     *
+     * @param <T>
+     */
     private interface OnTaskCompletedListener<T> {
         void onCompleted(T taskResult);
     }
 
+    /**
+     * Executor service provided for tasks
+     */
     private static ExecutorService s_executorService;
     static {
         s_executorService = Executors.newCachedThreadPool();
     }
 
+    /**
+     * Sends a given event to react-native across an async bridge
+     * 
+     * @param reactContext
+     * @param eventName
+     * @param params
+     */
     private void sendEvent(ReactContext reactContext, String eventName, @Nullable WritableMap params) {
-        Log.e("TestLog", "Sending event!");
         reactContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class).emit(eventName, params);
     }
 }

@@ -9,8 +9,6 @@ import MeetingCodeEnterScreen from '../screens/MeetingCodeEnterScreen';
 import SuccessScreen from '../screens/SuccessScreen';
 import MeetingDialogScreen from '../screens/MeetingDialogScreen';
 import DocumentSavingScreen from '../screens/DocumentSavingScreen';
-import SpeakerSetupScreen from '../screens/SpeakerSetupScreen';
-import PastMeetingsScreen from '../screens/PastMeetingsScreen';
 
 const AppStack = createStackNavigator({
   Home: HomeScreen,
@@ -20,8 +18,6 @@ const AppStack = createStackNavigator({
   MeetingDialog: MeetingDialogScreen,
   SavePdf: DocumentSavingScreen,
   SuccessScreen: SuccessScreen,
-  SpeakerSetup: SpeakerSetupScreen, 
-  PastMeetings: PastMeetingsScreen,
 });
 
 export default createAppContainer(createSwitchNavigator({

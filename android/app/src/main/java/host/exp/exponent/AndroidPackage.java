@@ -10,11 +10,23 @@ import java.util.*;
 
 public class AndroidPackage implements ReactPackage {
 
+    /**
+     * Creates the view managers for the android mic package
+     *
+     * @param reactContext
+     * @return list of view managers
+     */
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
         return Collections.emptyList();
     }
 
+    /**
+     * Creates the native android module
+     *
+     * @param reactContext
+     * @return list of native modules, consisting of the android mic module
+     */
     @Override
     public List<NativeModule> createNativeModules(
             ReactApplicationContext reactContext) {

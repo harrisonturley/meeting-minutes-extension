@@ -14,7 +14,10 @@ import ToastModule from '../components/ToastModule';
 import Mailer from 'react-native-mail';
 import Message from '../components/Message';
 
-export default class MeetingCodeEnterScreen extends React.Component {
+/** 
+ * Purpose: Provide a screen where the user can enter a meeting title and send the meeting transcript in an email
+ */
+export default class DocumentSavingScreen extends React.Component {
   static navigationOptions = {
     header: null
   };
@@ -23,6 +26,9 @@ export default class MeetingCodeEnterScreen extends React.Component {
       textValue: ''
   }
 
+  /**
+   * Purpose: Render the title entry and email/cancel buttons
+   */
   render() {
     return (
       <View style={styles.container}>
@@ -88,17 +94,25 @@ export default class MeetingCodeEnterScreen extends React.Component {
     );
   }
 
+  /**
+   * Purpose: Create the email based on the dialog collected
+   */
   craftEmail() {
     const textFromMeeting = this.props.navigation.state.params.dialogArr;
     var paragraphForm = "";
     
     for (i = 0; i < textFromMeeting.length; i++) {
-      paragraphForm = paragraphForm.concat('<p>[' + textFromMeeting[i].name + '] ' + textFromMeeting[i].text + '</p>');
+      paragraphForm = paragraphForm.concat('<p>' + textFromMeeting[i].text + '</p>');
     }
 
     this.handleEmail(paragraphForm);
   }
 
+  /**
+   * Purpose: Send given message via an external mailing app
+   * 
+   * Param message: The string of sentences spoken during the meeting
+   */
   handleEmail(message) {
     console.log('Final message passed: ' + message);
     Mailer.mail({
@@ -127,23 +141,31 @@ export default class MeetingCodeEnterScreen extends React.Component {
     });
   }
 
+  /**
+   * Purpose: Begin crafting the email if the entered title is valid
+   */
   _onPressSaveDocument = () => {
     if (this.state.title == undefined || this.state.title == '') {
       ToastModule.show('Invalid input!', ToastModule.SHORT);
-      //console.log(this.props.navigation.state.params);
       return;
     }
 
     this.craftEmail(); 
     this.props.navigation.navigate('SuccessScreen');
-
   }
+
+  /**
+   * Purpose: Cancel the meeting saving, discarding the contents
+   */
   _onPressCancelButton = () => {
     ToastModule.show('Meeting saving cancelled!', ToastModule.SHORT);
     this.props.navigation.navigate('Home'); 
   }
 }
 
+/**
+ * Purpose: Styles for the saving screen
+ */
 const styles = StyleSheet.create({
   container: {
     flex: 1,

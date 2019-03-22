@@ -10,11 +10,17 @@ import {
   Platform,
 } from 'react-native';
 
+/**
+ * Purpose: Provide the initial landing screen, prior to a meeting starting
+ */
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
 
+  /**
+   * Purpose: Render the home screen
+   */
   render() {
     return (
       <View style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -53,19 +59,31 @@ export default class HomeScreen extends React.Component {
     );
   }
 
+  /**
+   * Purpose: Move to dialog recording screen on setup being pressed
+   */
   _onPressMeetingSetup = () => {
     this.props.navigation.navigate('MeetingDialog');
   }
 
+  /**
+   * Purpose: Add a listener for the hardware back button to override usual functionality
+   */
   componentDidMount() {
     BackHandler.addEventListener('hardwareBackPress', this.handleBackPress.bind(this));
   }
 
+  /**
+   * Purpose: Ignore normal functionality of the hardware back button
+   */
   handleBackPress = () => {
     return true;
   }
 }
 
+/**
+ * Purpose: Provide the styles required for the home screen
+ */
 const styles = StyleSheet.create({
   container: {
     flex: 1,

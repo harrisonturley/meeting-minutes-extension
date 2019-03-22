@@ -39,11 +39,21 @@ import com.chirag.RNMail.*;
 
 public class MainApplication extends ExpoApplication implements AppLoaderPackagesProviderInterface<ReactPackage> {
 
+  /**
+   * Returns whether app is in debug mode or not
+   *
+   * @return the current debug status
+   */
   @Override
   public boolean isDebug() {
     return BuildConfig.DEBUG;
   }
 
+  /**
+   * Gets a list of all the react-native packages
+   *
+   * @return a list of react-native packages
+   */
   public List<ReactPackage> getPackages() {
     return Arrays.<ReactPackage>asList(
         // new MainReactPackage(),
@@ -55,6 +65,11 @@ public class MainApplication extends ExpoApplication implements AppLoaderPackage
     );
   }
 
+  /**
+   * Gets a list of the expo packages in use
+   *
+   * @return a list of expo packages
+   */
   public List<Package> getExpoPackages() {
     return Arrays.<Package>asList(
         new CameraPackage(),
@@ -83,16 +98,31 @@ public class MainApplication extends ExpoApplication implements AppLoaderPackage
     );
   }
 
+  /**
+   * Gets gcm sender ID
+   *
+   * @return string value of gcm sender id
+   */
   @Override
   public String gcmSenderId() {
     return getString(R.string.gcm_defaultSenderId);
   }
 
+  /**
+   * Gets the set value on whether to use internet kernel
+   *
+   * @return boolean for internet kernel
+   */
   @Override
   public boolean shouldUseInternetKernel() {
     return BuildVariantConstants.USE_INTERNET_KERNEL;
   }
 
+  /**
+   * Builds the okHttp client
+   * @param builder for okHttp
+   * @return the finalized builder
+   */
   public static OkHttpClient.Builder okHttpClientBuilder(OkHttpClient.Builder builder) {
     // Customize/override OkHttp client here
     return builder;

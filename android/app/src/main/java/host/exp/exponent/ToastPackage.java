@@ -11,11 +11,23 @@ import java.util.List;
 
 public class ToastPackage implements ReactPackage {
 
+    /**
+     * Creates the view managers for the toast package
+     *
+     * @param reactContext
+     * @return list of view managers
+     */
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
         return Collections.emptyList();
     }
 
+    /**
+     * Creates the native toast module
+     *
+     * @param reactContext
+     * @return list of native modules, consisting of the toast module
+     */
     @Override
     public List<NativeModule> createNativeModules(
             ReactApplicationContext reactContext) {
@@ -25,5 +37,4 @@ public class ToastPackage implements ReactPackage {
 
         return modules;
     }
-
 }

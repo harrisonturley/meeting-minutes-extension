@@ -1,11 +1,17 @@
 import React from 'react';
 import { Text, StyleSheet, View, TouchableOpacity, Platform,} from 'react-native';
 
+/**
+ * Purpose: Provide a landing screen after a meeting has been successfully mailed
+ */
 export default class SuccessScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
 
+  /**
+   * Purpose: Render the success screen
+   */
   render() {
     return (
       <View style={styles.container}>
@@ -21,12 +27,17 @@ export default class SuccessScreen extends React.Component {
     );
   }
 
+  /**
+   * Purpose: Navigate back to home screen after success
+   */
   _onEndMeeting = () => {
     this.props.navigation.navigate('Home');
   }
 }
 
-
+/**
+ * Purpose: Styles for the success screen
+ */
 const styles = StyleSheet.create({
   container: {
     flex: 1,

@@ -12,7 +12,9 @@ import {
 } from 'react-native';
 import ToastModule from '../components/ToastModule'
 
-
+/**
+ * Purpose: Provide a screen where remote users can enter a code to enter a meeting
+ */
 export default class MeetingCodeEnterScreen extends React.Component {
   static navigationOptions = {
     header: null
@@ -22,6 +24,9 @@ export default class MeetingCodeEnterScreen extends React.Component {
       textValue: ''
   }
 
+  /**
+   * Purpose: Render the code entry screen
+   */
   render() {
     return (
       <View style={styles.container}>
@@ -77,7 +82,9 @@ export default class MeetingCodeEnterScreen extends React.Component {
     );
   }
 
-
+  /**
+   * Purpose: Enter the dialog screen if the entered code is valid
+   */
   _onPressEnter = () => {
     if (this.state.code == undefined || this.state.code == '') {
       ToastModule.show('Invalid input!', ToastModule.SHORT);
@@ -87,11 +94,17 @@ export default class MeetingCodeEnterScreen extends React.Component {
     this.props.navigation.navigate('MeetingDialog');
   }
 
+  /**
+   * Purpose: Override the back button functionality
+   */
   _onPressBackButton = () => {
     this.props.navigation.pop();
   }
 }
 
+/**
+ * Purpose: Provide styling for the meeting code entry screen
+ */
 const styles = StyleSheet.create({
   container: {
     flex: 1,
